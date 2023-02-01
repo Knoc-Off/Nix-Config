@@ -5,8 +5,6 @@
     ./system
     ./services
     ./configuration.nix
-    
     ./modules/default.nix
-
   ];
 }
