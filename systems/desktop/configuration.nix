@@ -33,6 +33,7 @@
 
   # Packages
   environment.systemPackages = with pkgs; [
+    gnomeExtensions.tweaks-in-system-menu
     vim
     wget
     curl
@@ -40,17 +41,18 @@
     git
     trashy
     sops
+    alacritty
   ];
 
-  users.users = {
-    niko = {
-      shell = pkgs.zsh;
-      isNormalUser = true;
-      openssh.authorizedKeys.keys = [
-      ];
-      extraGroups = [ "wheel" "networkmanager" "audio" ];
-    };
-  };
+  #users.users = {
+  #  niko = {
+  #    shell = pkgs.zsh;
+  #    isNormalUser = true;
+  #    openssh.authorizedKeys.keys = [
+  #    ];
+  #    extraGroups = [ "wheel" "networkmanager" "audio" ];
+  #  };
+  #};
 
   users.users = {
     knoff = {

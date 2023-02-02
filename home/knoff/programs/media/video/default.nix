@@ -1,7 +1,7 @@
 { config, libs, ... }:
 {
   imports = [
-    ./video
-    ./audio
+    ./mpv.nix
+    ./obs.nix
   ];
 }

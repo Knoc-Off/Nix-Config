@@ -9,6 +9,13 @@ export DIRENV_LOG_FORMAT=
 func nixx () { if [[ $1 == "sudo" ]]; then; prog=$2 else; prog=$1; fi;  nix-shell -p "$prog" --run "$(echo $@)" }
 PS1=" %F{3}%3~ %f%# "
 
+func remove () {
+  echo -n "confirm (y/N): "
+  read confirm
+  if [[ "$confirm" == [yY] || "$confirm" == [yY][eE][sS] ]]; 
+    then /usr/bin/env rm $1
+  fi
+}
 
 
 # Seperate history for every tmux instance
