@@ -5,9 +5,6 @@
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
     unstable-pkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    #devenv.url = "github:cachix/devenv/v0.5";
-    #nur-pkgs.url = "github:nix-community/NUR";
-
 
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
@@ -29,7 +26,13 @@
     #nix-colors.url = "github:misterio77/nix-colors";
   };
 
-  outputs = { self, nixpkgs, unstable-pkgs, home-manager, ... }@inputs: 
+  outputs = inputs@ { 
+    self, 
+    nixpkgs, 
+    unstable-pkgs, 
+    home-manager, 
+    ... 
+  }:
   {
     nixosConfigurations = {
       lapix = nixpkgs.lib.nixosSystem {

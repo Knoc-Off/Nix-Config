@@ -25,12 +25,9 @@ nixx () {
 }
 PS1=" %F{3}%3~ %f%# "
 
-
-
-
 # Should search for a matching word in apps
 function nx () {
-  config_dir=$(realpath "~/nix-config")
+  config_dir="/home/knoff/Nix-Config" #$(realpath "~/nix-config")
   if [ ! $1 ]; then
     exa -T $config_dir
   else

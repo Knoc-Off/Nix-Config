@@ -25,13 +25,13 @@ in
   home.file."${profilePath}/chrome/hide-tabbar.css".text =
     __readFile (__fetchurl {
       url = "https://raw.githubusercontent.com/UnlimitedAvailableUsername/Edge-Mimicry-Tree-Style-Tab-For-Firefox/main/edge-mimicry/hide-tabbar.css";
-      sha256 = "1igwzq2v2v52wqabcwi9rb9li183gcix66lhj53x1d9dli689qfj";
+      sha256 = "0gkprg8vg9dw1i61j1byjw1drxi06vpqwsq7fw8026b6c80g6z70";
     });
 
   home.file."${profilePath}/chrome/sidebar-mods.css".text =
     __readFile (__fetchurl {
       url = "https://raw.githubusercontent.com/UnlimitedAvailableUsername/Edge-Mimicry-Tree-Style-Tab-For-Firefox/main/edge-mimicry/sidebar-mods.css";
-      sha256 = "1fc4qxfq1vyir7flj4rlasmjprjs7ppq7lqy0ipvdi1rwk3qyv0p";
+      sha256 = "0r70aygb86gldpzcsv2jqr88hm612m1av7whgxh3qid8jkzwfhxb";
     });
   home.file."${profilePath}/chrome/treestyletab-edge-mimicry.css".text =
     __readFile (__fetchurl {
@@ -41,7 +41,7 @@ in
   home.file."${profilePath}/chrome/vertical-tabs.css".text =
     __readFile (__fetchurl {
       url = "https://raw.githubusercontent.com/ranmaru22/firefox-vertical-tabs/main/userChrome.css";
-      sha256 = "0lcc853ddk9ia3x2hsvrq6vnnspbjadbqpkzhfvb6d42vsphgi61";
+      sha256 = "1z2nq37slcjf10qhdx7r2vjapianwjcc177g2rp0ainzm23j7ybq";
     });
 
 

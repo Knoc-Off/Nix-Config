@@ -3,7 +3,7 @@
   imports = [
     ./alacritty.nix
     ./zsh.nix
-
+    ./programs.nix
   ];
 
 }
