@@ -1,5 +1,11 @@
-{inputs, lib, pkgs, ... }:
+{inputs, lib, pkgs, ...}: 
 {
+
+  services.xserver.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
+
+  ## Remove pre-installed pkgs
   environment.gnome.excludePackages = (with pkgs; [
     gnome-photos
     gnome-console

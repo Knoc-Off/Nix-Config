@@ -20,10 +20,14 @@
     tealdeer
     fzf
     fd
-
-    # Sound mod
-    easyeffects
   ];
+
+  services.easyeffects = { 
+    enable = true;
+    package = unstable.easyeffects;
+  };
+  #programs.dconf.enable = true;
+
 
   programs.exa.enable = true;
   programs.exa.enableAliases = true;

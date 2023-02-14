@@ -1,6 +1,18 @@
 {
   description = "lowfat config";
 
+  nixConfig = {
+    # This allows the use of user built binaries? 
+    #extra-substituters = [
+    #  "https://nix-community.cachix.org"
+    #];
+    #extra-trusted-public-keys = [
+    #  "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    #];
+    # ibelive this should work
+    extra-substituters = ["https://hyprland.cachix.org"];
+    extra-trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+  };
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
@@ -15,7 +27,7 @@
 
     prismlauncher.url = "github:PrismLauncher/PrismLauncher";
 
-    #hyprland.url = "github:hyprwm/hyprland/v0.17.0beta";
+    hyprland.url = "github:hyprwm/hyprland/v0.17.0beta";
     #hyprwm-contrib.url = "github:hyprwm/contrib";
 
     # Home manager

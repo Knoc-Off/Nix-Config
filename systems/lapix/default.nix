@@ -8,5 +8,6 @@
     
     ./modules/default.nix
 
+    ../shared/optional/windowmanager
   ];
 }
