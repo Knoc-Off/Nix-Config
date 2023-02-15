@@ -26,29 +26,69 @@ in
     __readFile (__fetchurl {
       url = "https://raw.githubusercontent.com/UnlimitedAvailableUsername/Edge-Mimicry-Tree-Style-Tab-For-Firefox/main/edge-mimicry/hide-tabbar.css";
       sha256 = "0gkprg8vg9dw1i61j1byjw1drxi06vpqwsq7fw8026b6c80g6z70";
-    });
+  });
 
   home.file."${profilePath}/chrome/sidebar-mods.css".text =
     __readFile (__fetchurl {
       url = "https://raw.githubusercontent.com/UnlimitedAvailableUsername/Edge-Mimicry-Tree-Style-Tab-For-Firefox/main/edge-mimicry/sidebar-mods.css";
       sha256 = "0r70aygb86gldpzcsv2jqr88hm612m1av7whgxh3qid8jkzwfhxb";
-    });
+  });
   home.file."${profilePath}/chrome/treestyletab-edge-mimicry.css".text =
     __readFile (__fetchurl {
       url = "https://raw.githubusercontent.com/UnlimitedAvailableUsername/Edge-Mimicry-Tree-Style-Tab-For-Firefox/main/treestyletab-edge-mimicry.css";
       sha256 = "1pyn99widc3m9xlsklwd403q2srhnafa4a1kyh1b3pgd1w9g0bli";
-    });
+  });
   home.file."${profilePath}/chrome/vertical-tabs.css".text =
     __readFile (__fetchurl {
       url = "https://raw.githubusercontent.com/ranmaru22/firefox-vertical-tabs/main/userChrome.css";
       sha256 = "1z2nq37slcjf10qhdx7r2vjapianwjcc177g2rp0ainzm23j7ybq";
-    });
+  });
 
 
 
   programs.firefox = {
     enable = true;
     profiles.${profileName} = {
+
+      extensions = with addons; [
+        # Essentials
+        ublock-origin
+        #bitwarden
+        anonaddy
+        violentmonkey
+        clearurls
+        privacy-possum
+        tree-style-tab
+        fastforward
+
+        # Privacy 
+        smart-referer
+        user-agent-string-switcher
+        # canvasblocker
+        #cookie-autodelete
+        decentraleyes
+
+        # Quality of life
+        darkreader
+        sponsorblock
+        #enhancer-for-youtube
+        augmented-steam
+        consent-o-matic
+        enhanced-github
+        #flagfox
+        i-dont-care-about-cookies
+        lovely-forks
+        nighttab
+        protondb-for-steam
+        rust-search-extension
+        single-file
+        steam-database
+        youtube-shorts-block
+        #pay-by-privacy-com
+        translate-web-pages
+    ];
+
+
       id = 0;
       name = "${profileApperenceName}";
       userChrome =
@@ -371,42 +411,5 @@ in
       };
     };
 
-    extensions = with addons; [
-      # Essentials
-      ublock-origin
-      #bitwarden
-      anonaddy
-      violentmonkey
-      clearurls
-      privacy-possum
-      tree-style-tab
-      fastforward
-
-      # Privacy 
-      smart-referer
-      user-agent-string-switcher
-      # canvasblocker
-      #cookie-autodelete
-      decentraleyes
-
-      # Quality of life
-      darkreader
-      sponsorblock
-      #enhancer-for-youtube
-      augmented-steam
-      consent-o-matic
-      enhanced-github
-      #flagfox
-      i-dont-care-about-cookies
-      lovely-forks
-      nighttab
-      protondb-for-steam
-      rust-search-extension
-      single-file
-      steam-database
-      youtube-shorts-block
-      #pay-by-privacy-com
-      translate-web-pages
-    ];
   };
 }
