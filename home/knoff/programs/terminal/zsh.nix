@@ -67,6 +67,7 @@
       ];
       shellAliases = {
         rm = ''echo "use trash-cli instead"'';
+        remove = ''/usr/bin/env rm'';
         tmux = "TERM=screen-256color tmux";
       };
       initExtra = __readFile ../configs/zshrc.sh; 
