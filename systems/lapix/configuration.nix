@@ -31,6 +31,7 @@
     wget
     curl
     #unstable.git
+    libevdev
     git
     trashy
     sops

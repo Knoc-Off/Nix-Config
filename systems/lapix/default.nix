@@ -1,6 +1,7 @@
 { inputs, ... }: {
   imports = [
     ../shared/systems-common
+    ../shared/optional/audio
     ./networking
     ./system
     ./services
