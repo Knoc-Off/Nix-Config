@@ -15,11 +15,15 @@
     # Apps
     unstable.trilium-desktop
     element-desktop
+    dolphin
 
     # CLI Tools
     tealdeer
     fzf
     fd
+
+    fuzzel
+
   ];
 
   services.easyeffects = { 

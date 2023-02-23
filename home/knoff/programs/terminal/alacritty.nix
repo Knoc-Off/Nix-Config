@@ -15,7 +15,7 @@ Terminal startup behavior
     wl-clipboard
   ];
   programs.tmux = {
-    enable = true;
+    enable = false;
     disableConfirmationPrompt = true;
     keyMode = "vi";
     prefix = "M-z"; # Alt z or smt
@@ -77,7 +77,7 @@ Terminal startup behavior
         env.TERM = "alacritty";
         window = {
           decorations = "full"; # none
-          startup_mode = "Fullscreen";
+          #startup_mode = "Fullscreen";
           title = "Terminal";
           dynamic_title = true;
           dimensions = {
@@ -85,8 +85,8 @@ Terminal startup behavior
             lines = 30;
           };  
           padding = {
-            x = 0;
-            y = 0;
+            x = 2;
+            y = 2;
           };
           class = {
             instance = "Alacritty";
@@ -101,7 +101,7 @@ Terminal startup behavior
           #double_click: { threshold: 300 }
           #triple_click: { threshold: 300 }
         };
-        window.opacity = 0.90;
+        window.opacity = 1;
         key_bindings = [
           {
             key = "F11";
@@ -148,18 +148,13 @@ Terminal startup behavior
           };
           size = 15.00;
         };
-        shell = {
-          program = "/usr/bin/env";
-          args = [
-            "tmux"
-          ];
-        };
         colors = {
           primary = {
             background = "#1d1f21";
             foreground = "#c5c8c6";
           };
         };
+
       };
     };
   }
