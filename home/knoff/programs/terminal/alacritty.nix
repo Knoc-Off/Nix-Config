@@ -118,6 +118,11 @@ Terminal startup behavior
             mods = "Control|Shift";
             action = "Paste";
           }
+          { 
+            key = "V";
+            mods = "Control";
+            action = "Paste";
+          }
           {
             key = "N";
             mods = "Alt";
