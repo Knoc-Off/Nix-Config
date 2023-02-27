@@ -13,13 +13,18 @@ chrome() { nix-shell -p ungoogled-chromium --run "(chromium $1 &>/dev/null) &" }
 
 # nix shell made "easy"
 nixx () {
-  
+  sudo=0
   package=$1; 
   if [[ $1 == "sudo" ]]; then; 
     package=$2 
+    sudo=1
   fi;
 
   # Check some local database/ dict, that takes package as arg, and then looks up executable.
+  if [[ sudo == 1 ]]; then;
+    nix-shell -p "$package" --run "sudo $package";
+    break
+  fi
 
   nix-shell -p "$package" --run "$package";
 }

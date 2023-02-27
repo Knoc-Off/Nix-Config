@@ -8,6 +8,8 @@
     # inputs.nix-colors.homeManagerModule
     # You can also split up your configuration and import pieces of it here:
     ./programs # This installs some packages, and imports all of the configured packages.
+    ./desktop
+    ./enviroment.nix
   ];
 
   nixpkgs = {
@@ -28,9 +30,26 @@
   };
 
 
+  # !! 
+  qt = {
+    enable = true;
+    platformTheme = "gtk";
+    style = {
+      package = pkgs.adwaita-qt;
+    };
+  };
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Materia-dark";
+      package = pkgs.materia-theme;
+    };
+  };
+
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "22.11";
+
 }

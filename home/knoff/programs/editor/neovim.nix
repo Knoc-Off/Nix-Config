@@ -7,7 +7,6 @@
     viAlias = true;
     extraConfig =
       ''
-        set clipboard=unnamedplus
         set autoindent
         set expandtab
         set tabstop=2
@@ -15,7 +14,7 @@
         set relativenumber
         set number
         set undofile
-        set mouse
+        set mouse=
       '';
     plugins = with pkgs.vimPlugins; [
       direnv-vim # For .direnv + nixshell
