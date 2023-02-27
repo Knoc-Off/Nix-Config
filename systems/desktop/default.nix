@@ -2,6 +2,7 @@
   imports = [
     ../shared/systems-common
     ../shared/optional/audio
+    ../shared/optional/windowmanager
     ./networking
     ./system
     ./services

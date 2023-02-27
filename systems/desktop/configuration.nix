@@ -1,6 +1,8 @@
 { inputs, lib, config, pkgs, ... }: {
 
   imports = [
+    # hardware ssd?
+    # AMD GPU?
   ];
 
   services.flatpak.enable = true;
@@ -19,13 +21,6 @@
     ];
   };
 
-  ## Desktop Enviroment
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
   # should be moved elsewhere
   programs.steam = {
     enable = true;
@@ -33,17 +28,30 @@
 
   # Packages
   environment.systemPackages = with pkgs; [
-    gnomeExtensions.tweaks-in-system-menu
     vim
     wget
     curl
-    #unstable.git
     git
     trashy
-    sops
-    alacritty
+    alacritty # Dont need this, HM instead.
+
+    dracula-theme # gtk theme
+    gnome3.adwaita-icon-theme  # default gnome cursors
+    xdg-desktop-portal-wlr # Screen Rec.
+
+    swaylock # Screen-locking?
+    swayidle
+
+    slurp # screenshot functionality
+    grim
+    wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
+
+    mako # Notifications
   ];
 
+  programs.light.enable = true; # brightness? 
+
+  # Figure out how to delete users... 
   users.users = {
     niko = {
       shell = pkgs.zsh;
@@ -60,7 +68,7 @@
       isNormalUser = true;
       openssh.authorizedKeys.keys = [
       ];
-      extraGroups = [ "wheel" "networkmanager" "audio" ];
+      extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
     };
   };
 

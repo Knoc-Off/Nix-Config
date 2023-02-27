@@ -30,13 +30,12 @@
     vim
     wget
     curl
-    #unstable.git
-    libevdev
     git
     trashy
 
     dracula-theme # gtk theme
-    xdg-desktop-portal-wlr
+    gnome3.adwaita-icon-theme  # default gnome cursors
+    xdg-desktop-portal-wlr # Screen Rec.
 
     swaylock # Screen-locking?
     swayidle
@@ -46,12 +45,9 @@
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
 
     mako # Notifications
-
-    dracula-theme # gtk theme
-    gnome3.adwaita-icon-theme  # default gnome cursors
-
   ];
 
+  programs.light.enable = true; # brightness? 
 
   services.dbus.enable = true;
   xdg.portal = {
@@ -70,7 +66,6 @@
       extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
     };
   };
-  programs.light.enable = true; # brightness? 
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "22.11";

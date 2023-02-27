@@ -7,6 +7,7 @@
     viAlias = true;
     extraConfig =
       ''
+        set clipboard+=unnamed
         set autoindent
         set expandtab
         set tabstop=2
