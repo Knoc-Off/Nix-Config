@@ -95,12 +95,11 @@ Terminal startup behavior
         };
         cursor = {
           style = "Beam";
-
         };
-        mouse = {
+        #mouse = {
           #double_click: { threshold: 300 }
           #triple_click: { threshold: 300 }
-        };
+        #};
         window.opacity = 1;
         key_bindings = [
           {

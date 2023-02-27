@@ -108,7 +108,12 @@ in
 
           }
 
-
+          .titlebar-buttonbox-container{ 
+            display:none 
+          }
+          .titlebar-spacer[type="post-tabs"]{ 
+            display:none 
+          }
 
 
         '';
@@ -254,6 +259,7 @@ in
 
         #### Theme Settings ####
         ## personal
+        "ui.key.menuAccessKeyFocuses" = false;
         "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
         "browser.urlbar.showSearchSuggestionsFirst" = false;
         "browser.tabs.insertAfterCurrent" = true;

@@ -1,22 +1,26 @@
 {
   description = "lowfat config";
 
-  nixConfig = {
-    # This allows the use of user built binaries? 
-    #extra-substituters = [
-    #  "https://nix-community.cachix.org"
-    #];
-    #extra-trusted-public-keys = [
-    #  "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    #];
-    # ibelive this should work
-    extra-substituters = ["https://hyprland.cachix.org"];
-    extra-trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+  nixConfig = 
+  {
+    trusted-substituters = [
+      "https://hyprland.cachix.org"
+      #"https://app.cachix.org/cache/jakestanger"
+    ];
+    extra-trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+    ];
   };
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
     unstable-pkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    
+    # IronBar
+    #ironbar = {
+    #  url = "github:JakeStanger/ironbar";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
 
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";

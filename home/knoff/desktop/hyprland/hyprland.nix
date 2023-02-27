@@ -34,83 +34,83 @@
 
           # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
           input {
-          kb_layout = us
-          kb_variant =
-          kb_model =
-          kb_options =
-          kb_rules =
-
-          follow_mouse = 1
-
-          touchpad {
-          natural_scroll = true
-          }
-
-          sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
+            kb_layout = us
+            kb_variant =
+            kb_model =
+            kb_options =
+            kb_rules =
+  
+            follow_mouse = 1
+  
+            touchpad {
+              natural_scroll = true
+            }
+  
+            sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
           }
 
           general {
-          # See https://wiki.hyprland.org/Configuring/Variables/ for more
-
-          gaps_in = 2
-          gaps_out = 4
-          border_size = 2
-          #col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
-          col.inactive_border = rgba(595959aa)
-
-          layout = dwindle
+            # See https://wiki.hyprland.org/Configuring/Variables/ for more
+  
+            gaps_in = 2
+            gaps_out = 4
+            border_size = 2
+            col.active_border = rgba(595959aa) # rgba(00ff99ee) 45deg
+            col.inactive_border = rgba(50505020)
+  
+            layout = dwindle
           }
 
           decoration {
-          # See https://wiki.hyprland.org/Configuring/Variables/ for more
-
-          rounding = 5
-          blur = true
-          blur_size = 3
-          blur_passes = 1
-          blur_new_optimizations = true
-
-          drop_shadow = true
-          shadow_range = 2
-          shadow_render_power = 3
-          col.shadow = rgba(1a1a1aee)
+            # See https://wiki.hyprland.org/Configuring/Variables/ for more
+  
+            rounding = 5
+            blur = true
+            blur_size = 3
+            blur_passes = 1
+            blur_new_optimizations = true
+  
+            drop_shadow = true
+            shadow_range = 2
+            shadow_render_power = 3
+            col.shadow = rgba(1a1a1aee)
           }
 
           animations {
-          enabled = true
-
-          # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
-
-          bezier = myBezier, 0.05, 0.9, 0.1, 1.05
-
-          animation = windows, 1, 7, myBezier
-          animation = windowsOut, 1, 7, default, popin 80%
-          animation = border, 1, 10, default
-          #animation = borderangle, 1, 8, default
-          animation = fade, 1, 7, default
-          animation = workspaces, 1, 6, default
+            enabled = true
+  
+            # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
+  
+            bezier = myBezier, 0.05, 0.9, 0.1, 1.05
+  
+            animation = windows, 1, 7, myBezier
+            animation = windowsOut, 1, 7, default, popin 80%
+            animation = border, 1, 10, default
+            #animation = borderangle, 1, 8, default
+            animation = fade, 1, 7, default
+            animation = workspaces, 1, 6, default
           }
 
           dwindle {
-          # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-          pseudotile = true # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-          preserve_split = true # you probably want this
+            # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
+            pseudotile = true # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+            preserve_split = true # you probably want this
           }
 
           master {
-          # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-          new_is_master = true
+            # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
+            new_is_master = true
           }
 
           gestures {
-          # See https://wiki.hyprland.org/Configuring/Variables/ for more
-          workspace_swipe = false
+            # See https://wiki.hyprland.org/Configuring/Variables/ for more
+            workspace_swipe = true
           }
 
           # Example per-device config
           # See https://wiki.hyprland.org/Configuring/Keywords/#executing for more
           device:epic mouse V1 {
-          sensitivity = -0.5
+            sensitivity = -0.5
           }
 
           # Example windowrule v1
@@ -131,15 +131,29 @@
           bind = $mainMod, M, exit,
           bind = $mainMod, E, exec, dolphin
           bind = $mainMod, V, togglefloating,
-          bind = $mainMod, R, exec, wofi --show drun
+          #bind = $mainMod, R, exec, wofi --show drun
           bind = $mainMod, P, pseudo, # dwindle
           bind = $mainMod, J, togglesplit, # dwindle
+          bind = $mainMod, F, fullscreen, 
+          #bind = $mainMod, T, tile, 
+          
 
-          # Move focus with mainMod + arrow keys  resizewindow
-#          bind = $mainMod SHIFT, left, movefocus, l
-#          bind = $mainMod SHIFT, right, movefocus, r
-#          bind = $mainMod SHIFT, up, movefocus, u
-#          bind = $mainMod SHIFT, down, movefocus, d
+          binde=$mainMod SHIFT,right,resizeactive,25 0
+          binde=$mainMod SHIFT,left,resizeactive,-25 0
+          binde=$mainMod SHIFT,up,resizeactive,0 -25
+          binde=$mainMod SHIFT,down,resizeactive,0 25
+
+          # sudo light -A 10 # ADD 
+          # sudo light -O 10 # SUB
+
+          binde=, XF86MonBrightnessDown, exec, sudo light -A 10
+          bindl=, XF86MonBrightnessDown, exec, sudo light -O 10
+
+          # Example volume button that allows press and hold
+          binde=, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+
+          # Example volume button that will activate even while an input inhibitor is active
+          bindl=, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
 
           
           # ~~~~~~~~~~~
@@ -163,8 +177,19 @@
           # will reset the submap, meaning end the current one and return to the global one
           submap=reset
 
-          # ~~~~~~~~
+          # ~~~~ Window Specific Rules ~~~~~
+          
+          
 
+
+          # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+          # Move focus with mainMod + arrow keys
+          bind = $mainMod ALT, left, movewindow, l
+          bind = $mainMod ALT, right, movewindow, r
+          bind = $mainMod ALT, up, movewindow, u
+          bind = $mainMod ALT, down, movewindow, d
 
           # Move focus with mainMod + arrow keys
           bind = $mainMod, left, movefocus, l
@@ -204,6 +229,8 @@
           bindm = $mainMod, mouse:272, movewindow
           bindm = $mainMod, mouse:273, resizewindow
 
+          exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+          exec-once=hyprpaper
         '';
 
       };

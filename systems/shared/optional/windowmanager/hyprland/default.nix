@@ -4,4 +4,7 @@
     ./hyprland.nix
     ./waybar.nix
   ];
+  environment.systemPackages = with pkgs; [
+    hyprpaper
+  ];
 }
