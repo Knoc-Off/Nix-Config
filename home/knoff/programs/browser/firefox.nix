@@ -1,5 +1,5 @@
 # NixOS, Firefox, web browser configuration, extensions, custom configuration options, CSS styles
-{ config, pkgs, inputs, ... }:
+{ nix-colors, config, pkgs, inputs, ... }:
 let
   profileName = "knoff";
   profileApperenceName = "Personal";
@@ -7,26 +7,13 @@ let
   profilePath = "${firefoxPath}/${profileName}";
 
   addons = inputs.firefox-addons.packages.${pkgs.system};
-    #config = {
-  #    allowUnfree = true;
-  #  };
-  #}; #.packages.${pkgs.system};
-  #unstable = import unstable-pkgs
-  #{
-  #  inherit system;
-  #  config = {
-  #    allowUnfree = true;
-  #  };
-  #}; # legacyPackages.${system};
-
-
 in
 {
-  home.file."${profilePath}/chrome/hide-tabbar.css".text =
-    __readFile (__fetchurl {
-      url = "https://raw.githubusercontent.com/UnlimitedAvailableUsername/Edge-Mimicry-Tree-Style-Tab-For-Firefox/main/edge-mimicry/hide-tabbar.css";
-      sha256 = "0gkprg8vg9dw1i61j1byjw1drxi06vpqwsq7fw8026b6c80g6z70";
-  });
+  #home.file."${profilePath}/chrome/hide-tabbar.css".text =
+  #  __readFile (__fetchurl {
+  #    url = "https://raw.githubusercontent.com/UnlimitedAvailableUsername/Edge-Mimicry-Tree-Style-Tab-For-Firefox/main/edge-mimicry/hide-tabbar.css";
+  #    sha256 = "0gkprg8vg9dw1i61j1byjw1drxi06vpqwsq7fw8026b6c80g6z70";
+  #});
 
   home.file."${profilePath}/chrome/sidebar-mods.css".text =
     __readFile (__fetchurl {
@@ -38,11 +25,18 @@ in
       url = "https://raw.githubusercontent.com/UnlimitedAvailableUsername/Edge-Mimicry-Tree-Style-Tab-For-Firefox/main/treestyletab-edge-mimicry.css";
       sha256 = "1pyn99widc3m9xlsklwd403q2srhnafa4a1kyh1b3pgd1w9g0bli";
   });
-  home.file."${profilePath}/chrome/vertical-tabs.css".text =
-    __readFile (__fetchurl {
-      url = "https://raw.githubusercontent.com/ranmaru22/firefox-vertical-tabs/main/userChrome.css";
-      sha256 = "1z2nq37slcjf10qhdx7r2vjapianwjcc177g2rp0ainzm23j7ybq";
-  });
+
+  #home.file."${profilePath}/chrome/vertical-tabs.css".text =
+  #  __readFile (__fetchurl {
+  #    url = "https://raw.githubusercontent.com/ranmaru22/firefox-vertical-tabs/main/userChrome.css";
+  #    sha256 = "1z2nq37slcjf10qhdx7r2vjapianwjcc177g2rp0ainzm23j7ybq";
+  #});
+  # Testing
+  #home.file."${profilePath}/chrome/tabCenterReborn.css".text =
+  #  __readFile (__fetchurl {
+  #    url = "https://raw.githubusercontent.com/ranmaru22/firefox-vertical-tabs/main/tabCenterReborn.css";
+  #    sha256 = "11ggfjk07n8n41nhwaqckvk91h6aac8jcrw2vhsxq0vk2dpjzdp4";
+  #});
 
 
 
@@ -65,7 +59,7 @@ in
         smart-referer
         user-agent-string-switcher
         # canvasblocker
-        #cookie-autodelete
+        # cookie-autodelete
         decentraleyes
 
         # Quality of life
@@ -93,9 +87,9 @@ in
       name = "${profileApperenceName}";
       userChrome =
         ''
-          @import "vertical-tabs.css";
-          @import "sidebar-mods.css";
+          @import "sidebar-mods.css"; 
 
+          /* SideBar configs */
           #sidebar-header {
             display: none;
           
@@ -105,9 +99,42 @@ in
             --sidebar-width: 48px;
             --sidebar-hover-width: calc(calc(calc(var(--sidebar-width) - 0.65em) * 10) + 0.65em);
             --autohide-sidebar-delay: 100ms; /* Delay before hiding the sidebar */
-
+            --sidebar-background-color: #${config.colorScheme.colors.base02} !important;
+          }
+          .sidebar-panel #search-box{
+            background-color: #${config.colorScheme.colors.base03} !important;
+            color: #${config.colorScheme.colors.base06} !important;
           }
 
+          #sidebar,
+          #sidebar-header {
+            background-color: #${config.colorScheme.colors.base02} !important;
+            border-bottom: none !important;
+            background-image: var(--lwt-additional-images);
+            background-position: auto;
+            background-size: auto;
+            background-repeat: no-repeat;
+          }
+
+          #browser {
+            --sidebar-border-color: #${config.colorScheme.colors.base01} !important;
+          }
+          #sidebar-header::before {
+            background-color: #${config.colorScheme.colors.base02} !important;
+          }
+
+          #sidebar-header::after{
+            background-color: #${config.colorScheme.colors.base02} !important;
+          }
+
+          /* hides the native tabs */
+          #TabsToolbar {
+            visibility: collapse;
+          }
+
+
+
+          /* Hide window controls */
           .titlebar-buttonbox-container{ 
             display:none 
           }
@@ -115,15 +142,97 @@ in
             display:none 
           }
 
+          /* Color Configs */
+          :root{
+            /* Popup panels */
+            --arrowpanel-background: #${config.colorScheme.colors.base01} !important;
+            --arrowpanel-border-color: #${config.colorScheme.colors.base00} !important;
+            --arrowpanel-color: #${config.colorScheme.colors.base06} !important;
+            --arrowpanel-dimmed: #${config.colorScheme.colors.base05} !important;
 
+            /* window and toolbar background */
+            --lwt-accent-color: #${config.colorScheme.colors.base01} !important;
+            --lwt-accent-color-inactive: #${config.colorScheme.colors.base00} !important;
+            --toolbar-bgcolor: #${config.colorScheme.colors.base01} !important;  
+
+            /* tabs with system theme - text is not controlled by variable */
+            --tab-selected-bgcolor: #${config.colorScheme.colors.base02} !important;
+
+            /* tabs with any other theme */
+            --lwt-text-color: #${config.colorScheme.colors.base05} !important;
+            --lwt-selected-tab-background-color: #${config.colorScheme.colors.base02} !important;
+
+            /* toolbar area */
+            --toolbarbutton-icon-fill: #${config.colorScheme.colors.base06} !important;
+            --lwt-toolbarbutton-hover-background: #${config.colorScheme.colors.base06} !important;
+            --lwt-toolbarbutton-active-background: #${config.colorScheme.colors.base05} !important;
+
+            /* urlbar */
+            --toolbar-field-border-color: #${config.colorScheme.colors.base04} !important;
+            --toolbar-field-focus-border-color: #${config.colorScheme.colors.base05} !important;
+            --urlbar-popup-url-color: #${config.colorScheme.colors.base06} !important;
+
+            /* urlbar Firefox < 92 */
+            --lwt-toolbar-field-background-color: #${config.colorScheme.colors.base02} !important;
+            --lwt-toolbar-field-focus: #${config.colorScheme.colors.base07} !important;
+            --lwt-toolbar-field-color: #${config.colorScheme.colors.base06} !important;
+            --lwt-toolbar-field-focus-color: #${config.colorScheme.colors.base07} !important;
+
+            /* urlbar Firefox 92+ */
+            --toolbar-field-background-color: #${config.colorScheme.colors.base02} !important;
+            --toolbar-field-focus-background-color: #${config.colorScheme.colors.base03} !important;
+            --toolbar-field-color: #${config.colorScheme.colors.base06} !important;
+            --toolbar-field-focus-color: #${config.colorScheme.colors.base07} !important;
+
+            /* sidebar - note the sidebar-box rule for the header-area */
+            --lwt-sidebar-background-color: #${config.colorScheme.colors.base02} !important;
+            --lwt-sidebar-text-color: #${config.colorScheme.colors.base06} !important;
+          }
+
+          /* line between nav-bar and tabs toolbar,
+          also fallback color for border around selected tab */
+          #navigator-toolbox{ --lwt-tabs-border-color: #${config.colorScheme.colors.base02} !important; }
+          /* Line above tabs */
+          #tabbrowser-tabs{ --lwt-tab-line-color: #${config.colorScheme.colors.base05} !important; }
+          /* the header-area of sidebar needs this to work */
+          #sidebar-box{ --sidebar-background-color: #${config.colorScheme.colors.base00} !important; }
+
+          /* This changes the color of the loading page */
+          #tabbrowser-tabpanels,
+          #webextpanels-window,
+          #webext-panels-stack,
+          #webext-panels-browser {
+            background: #${config.colorScheme.colors.base02} !important;
+          }
         '';
 
-
-
+      userContent =
+        ''
+        @-moz-document plain-text-document(), media-document(all) {
+          @media (prefers-color-scheme: dark) {
+            :root {
+              background-color: #${config.colorScheme.colors.base02} !important;
+            }
+            body:not([style*="background"], [class], [id]) {
+              background-color: transparent !important;
+            }
+          }
+        }
+        @-moz-document url("about:blank") {
+          @media (prefers-color-scheme: dark) {
+            :root {
+              background-color: #${config.colorScheme.colors.base02} !important;
+            }
+          }
+        }
+        '';
       settings = {
 
-        #"browser.uiCustomization.state" = ''{"placements":{"widget-overflow-fixed-list":["_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action","enhancerforyoutube_maximerf_addons_mozilla_org-browser-action","treestyletab_piro_sakura_ne_jp-browser-action"],"nav-bar":["back-button","forward-button","stop-reload-button","home-button","history-panelmenu","customizableui-special-spring1","customizableui-special-spring16","urlbar-container","ublock0_raymondhill_net-browser-action","cookieautodelete_kennydo_com-browser-action","browser-extension_anonaddy-browser-action","_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action","customizableui-special-spring2","save-to-pocket-button","downloads-button","fxa-toolbar-menu-button","_531906d3-e22f-4a6c-a102-8057b88a1a63_-browser-action","_7962ff4a-5985-4cf2-9777-4bb642ad05b8_-browser-action","_testpilot-containers-browser-action","amptra_keepa_com-browser-action","addon_darkreader_org-browser-action"],"toolbar-menubar":["menubar-items"],"TabsToolbar":["firefox-view-button","tabbrowser-tabs","new-tab-button","alltabs-button"],"PersonalToolbar":["import-button","personal-bookmarks"]},"seen":["developer-button","_036a55b4-5e72-4d05-a06c-cba2dfcc134a_-browser-action","browser-extension_anonaddy-browser-action","_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action","_74145f27-f039-47ce-a470-a662b129930a_-browser-action","gdpr_cavi_au_dk-browser-action","cookieautodelete_kennydo_com-browser-action","addon_darkreader_org-browser-action","jid1-bofifl9vbdl2zq_jetpack-browser-action","_72bd91c9-3dc5-40a8-9b10-dec633c0873f_-browser-action","enhancerforyoutube_maximerf_addons_mozilla_org-browser-action","jid1-kkzogwgsw3ao4q_jetpack-browser-action","github-forks-addon_musicallyut_in-browser-action","woop-noopscoopsnsxq_jetpack-browser-action","_531906d3-e22f-4a6c-a102-8057b88a1a63_-browser-action","smart-referer_meh_paranoid_pk-browser-action","sponsorblocker_ajay_app-browser-action","treestyletab_piro_sakura_ne_jp-browser-action","ublock0_raymondhill_net-browser-action","_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action","_34daeb50-c2d2-4f14-886a-7160b24d66a4_-browser-action","_7962ff4a-5985-4cf2-9777-4bb642ad05b8_-browser-action","addon_fastforward_team-browser-action","_testpilot-containers-browser-action","amptra_keepa_com-browser-action"],"dirtyAreaCache":["nav-bar","PersonalToolbar","widget-overflow-fixed-list","toolbar-menubar","TabsToolbar"],"currentVersion":18,"newElementCount":17}'';
+        # I think its a bad idea to set this, but it could allow pre-configureations to work nicer
+        #"browser.uiCustomization.state" 
 
+        # Make zoom more gradual
+        "toolkit.zoomManager.zoomValues" = "0.30,0.32,0.34,0.36,0.38,0.40,0.42,0.44,0.46,0.48,0.50,0.52,0.54,0.56,0.58,0.60,0.62,0.64,0.66,0.68,0.70,0.72,0.74,0.76,0.78,0.80,0.82,0.84,0.86,0.88,0.90,0.92,0.94,0.96,0.98,1.0,1.02,1.04,1.06,1.08,1.10,1.12,1.14,1.16,1.18,1.20,1.22,1.24,1.26,1.28,1.30,1.32,1.34,1.36,1.38,1.40,1.42,1.44,1.46,1.48,1.50,1.52,1.54,1.56,1.58,1.60,1.62,1.64,1.66,1.68,1.70,1.72,1.74,1.76,1.78,1.80,1.82,1.84,1.86,1.88,1.90,1.92,1.94,1.96,1.98,2";
 
         # Enable HTTPS-Only Mode
         "dom.security.https_only_mode" = true;
@@ -198,7 +307,7 @@ in
         "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.searchEngines" = "";
         "browser.newtabpage.activity-stream.default.sites" = "";
         "browser.newtabpage.blocked" = "";
-        "browser.search.hiddenOneOffs" = "Amazon.de,Bing,Google,Wikipedia (en)";
+        "browser.search.hiddenOneOffs" = "Amazon.de,Bing,Google,Wikipedia (en)" ;
 
         # Disable all sorts of telemetry
         "browser.newtabpage.activity-stream.telemetry.structuredIngestion.endpoint" = "";
@@ -301,7 +410,7 @@ in
 
 
         # Theme Default Settings
-	"layout.css.devPixelsPerPx" = "1.3"; # UI shrink
+	      "layout.css.devPixelsPerPx" = "1.3"; # UI shrink
         "userChrome.compatibility.theme" = true;
         "userChrome.compatibility.os" = true;
         "userChrome.theme.built_in_contrast" = true;

@@ -16,34 +16,29 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
     unstable-pkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     
-    # IronBar
-    #ironbar = {
-    #  url = "github:JakeStanger/ironbar";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
+    # Neovim nix module
+    nixvim.url = "github:pta2002/nixvim";
 
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    sops-nix.url = "github:Mic92/sops-nix";
-
     prismlauncher.url = "github:PrismLauncher/PrismLauncher";
 
     hyprland.url = "github:hyprwm/hyprland/v0.17.0beta";
-    #hyprwm-contrib.url = "github:hyprwm/contrib";
 
     # Home manager
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     hardware.url = "github:nixos/nixos-hardware";
-    #nix-colors.url = "github:misterio77/nix-colors";
+    nix-colors.url = "github:misterio77/nix-colors";
   };
 
   outputs = inputs@ { 
     self, 
+    nix-colors,
     nixpkgs, 
     unstable-pkgs, 
     home-manager, 
@@ -85,6 +80,7 @@
         modules = [ ./home/knoff/lapix.nix ]; 
         extraSpecialArgs = {
           inherit unstable;
+          inherit nix-colors;
         };
       };
       "knoff@desktop" = home-manager.lib.homeManagerConfiguration {

@@ -8,6 +8,7 @@
     ./browser
     ./virtualization
     ./media
+    ./configs
   ];
 
   home.packages = with pkgs; [
@@ -22,6 +23,7 @@
     fzf
     fd
     btop
+    bat
 
     fuzzel
 
