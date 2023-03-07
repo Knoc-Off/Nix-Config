@@ -122,7 +122,7 @@ Terminal startup behavior
           };
           selection = {
             text = "CellForeground";
-            background = "#${config.colorScheme.colors.base03}";
+            background = "#${config.colorScheme.colors.base04}";
           };
         };
       };

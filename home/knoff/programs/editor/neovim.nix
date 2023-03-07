@@ -19,8 +19,24 @@
       clipboard = "unnamed";
       mouse = ""; # mouse should be able to select, not move cursor
       undofile = true;
-      so = 10; # keeps cursor center not sure if i like.
+      so = 5; # keeps cursor center not sure if i like.
     };
+
+    maps = {
+      #normalVisualOp.";" = ":"; # Same as noremap ; :
+      # vnoremap . :normal .<CR>
+
+      visual."." = {
+        silent = true;
+        action = ":normal .<CR>";
+      };
+
+      #normal."<C-M-u> j" = { # :nnoremap <C-M-u> j<C-e>
+        #silent = true;
+        #action = "<C-e>";
+      #}; 
+    }; 
+
     extraConfigLua = 
     ''
       local vim = vim

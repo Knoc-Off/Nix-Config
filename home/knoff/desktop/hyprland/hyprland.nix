@@ -139,6 +139,7 @@
           
 
           binde=$mainMod SHIFT,right,resizeactive,25 0
+          binde=$mainMod SHIFT,right,resizeactive,25 0
           binde=$mainMod SHIFT,left,resizeactive,-25 0
           binde=$mainMod SHIFT,up,resizeactive,0 -25
           binde=$mainMod SHIFT,down,resizeactive,0 25
