@@ -1,13 +1,13 @@
-{ pkgs, config, nix-colors, ... }: 
+{ pkgs, config, nix-colors, ... }:
 {
   imports = [
     nix-colors.homeManagerModule
   ];
 
-  #colorScheme = nix-colors.colorSchemes.dracula;
+  # colorScheme = nix-colors.colorSchemes.dracula;
 
-  #colorScheme = nix-colors.lib-core.schemeFromYAML "cool-scheme" 
-  #  (builtins.readFile (builtins.fetchUrl "https://raw.githubusercontent.com/chriskempson/base16-default-schemes/master/default-dark.yaml"));
+  # colorScheme = nix-colors.lib-core.schemeFromYAML "cool-scheme"
+  # (builtins.readFile (builtins.fetchUrl "https://raw.githubusercontent.com/chriskempson/base16-default-schemes/master/default-dark.yaml"));
 
   colorScheme = {
     slug = "My-Theme";
@@ -31,8 +31,8 @@
       base0D = "#3f84ba";
       base0E = "#6177a6";
       base0F = "#766d91";
-      # ROYGBIV, for more specific colors
-      base10 = "#ff595e"; 
+      # ROYGBIV, for more specific colors, Should i just name the variables red...etc
+      base10 = "#ff595e";
       base11 = "#ff7655";
       base12 = "#ff924c";
       base13 = "#ffae43";
@@ -49,6 +49,22 @@
       base1E = "#6a4c93";
       base1F = "#7d63a1";
       # wont be compatible but eh who cares.
+      base20 = "#cc4449";
+      base21 = "#cc5c42";
+      base22 = "#cc723b";
+      base23 = "#cc8833";
+      base24 = "#cc9e2c";
+      base25 = "#b19129";
+      base26 = "#8c9124";
+      base27 = "#748d1f";
+      base28 = "#3d6b4d";
+      base29 = "#2b6e7a";
+      base2A = "#16609b";
+      base2B = "#275489";
+      base2C = "#3a4477";
+      base2D = "#4c3a66";
+      base2E = "#5e3055";
+      base2F = "#6f4866";
     };
   };
 }

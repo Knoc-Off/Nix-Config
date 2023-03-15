@@ -16,8 +16,16 @@
     enableDefaultFonts = true;
     fonts = with pkgs; [
       hack-font
-      noto-fonts-emoji
+      fira-code-symbols
+      (nerdfonts.override { fonts = [ "FiraCode" ]; })
     ];
+    fontconfig = {
+      defaultFonts = {
+        #serif = [ "Vazir" "Ubuntu" ];
+        #sansSerif = [ "Vazir" "Ubuntu" ];
+        monospace = [ "FiraCode" ];
+      };
+    };
   };
 
   programs.steam = {

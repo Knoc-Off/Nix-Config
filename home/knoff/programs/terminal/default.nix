@@ -2,6 +2,7 @@
 {
   imports = [
     ./alacritty.nix
+    ./kitty.nix
     ./zsh.nix
     ./programs.nix
   ];

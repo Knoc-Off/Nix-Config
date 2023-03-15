@@ -1,7 +1,7 @@
 {
   description = "lowfat config";
 
-  nixConfig = 
+  nixConfig =
   {
     trusted-substituters = [
       "https://hyprland.cachix.org"
@@ -11,11 +11,17 @@
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
     ];
   };
+
   inputs = {
+
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
     unstable-pkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    
+
+
+    # Community maintained vimPlugins
+    nixneovimplugins.url = "github:jooooscha/nixpkgs-vim-extra-plugins";
+
     # Neovim nix module
     nixvim.url = "github:pta2002/nixvim";
 
@@ -23,6 +29,7 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
 
     prismlauncher.url = "github:PrismLauncher/PrismLauncher";
 
@@ -36,48 +43,47 @@
     nix-colors.url = "github:misterio77/nix-colors";
   };
 
-  outputs = inputs@ { 
-    self, 
+  outputs = inputs@ {
+    self,
     nix-colors,
-    nixpkgs, 
-    unstable-pkgs, 
-    home-manager, 
-    ... 
+    nixpkgs,
+    unstable-pkgs,
+    home-manager,
+    ...
   }:
   {
+
     nixosConfigurations = {
       lapix = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
-        modules = 
-        [ ./systems/lapix ]; # Laptop-Nix > Lapix
+        modules =
+        [ ./systems/lapix ]; # Laptop
       };
       desktop = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
-        modules = 
+        modules =
         [ ./systems/desktop ]; # Desktop
       };
     };
 
-    # Available through 'home-manager --flake .#your-username@your-hostname'
-    homeConfigurations = 
+    homeConfigurations =
     let
-      # Pass the unstable package set in as an additional import
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-      unstable = import unstable-pkgs 
-      { 
+      unstable = import unstable-pkgs
+      {
         inherit system;
         config = {
           allowUnfree = true;
         };
-      }; # legacyPackages.${system};
+      };
 
     in
     {
       "knoff@lapix" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = { inherit inputs; };
-        modules = [ ./home/knoff/lapix.nix ]; 
+        modules = [ ./home/knoff/lapix.nix ];
         extraSpecialArgs = {
           inherit unstable;
           inherit nix-colors;
@@ -86,14 +92,12 @@
       "knoff@desktop" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = { inherit inputs; };
-        modules = [ ./home/knoff/desktop.nix ]; 
+        modules = [ ./home/knoff/desktop.nix ];
         extraSpecialArgs = {
           inherit unstable;
         };
       };
-
-
-    };
+    }; # Home manager config.
 
   };
 }

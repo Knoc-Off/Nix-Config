@@ -1,8 +1,8 @@
-{ pkgs, libs, config, ... }:
+{ pkgs, inputs, libs, config, ... }:
 {
   imports = [
-    ./neovim.nix
-
+    inputs.nixvim.homeManagerModules.nixvim
+    ./neovim
   ];
 
 }

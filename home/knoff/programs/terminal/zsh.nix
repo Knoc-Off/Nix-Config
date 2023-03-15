@@ -69,7 +69,8 @@
         rm = ''echo "use trash-cli instead"'';
         remove = ''/usr/bin/env rm'';
         tmux = "TERM=screen-256color tmux";
+        sshk = "kitty +kitten ssh";
       };
-      initExtra = __readFile ../configs/zshrc.sh; 
+      initExtra = builtins.readFile ../configs/zshrc.sh;
     };
 }

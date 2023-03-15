@@ -3,6 +3,7 @@
 
   nixpkgs = {
     overlays = [
+        inputs.nixneovimplugins.overlays.default
     ];
     config = {
       allowUnfree = true;
@@ -19,6 +20,7 @@
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
     settings = {
+      #trustedUsers = [ "root" "knoff" ];
       # Enable flakes and new 'nix' command
       experimental-features = "nix-command flakes";
       # Deduplicate and optimize nix store

@@ -124,7 +124,7 @@
           $mainMod = SUPER
 
           # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-          bind = $mainMod, Q, exec, alacritty
+          bind = $mainMod, Q, exec, kitty
           # bind = ALT, SPACE, exec, fuzzel
           bind = $mainMod, SPACE, exec, fuzzel
           bind = $mainMod, C, killactive,
@@ -232,6 +232,7 @@
 
           exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
           exec-once=hyprpaper
+
         '';
 
       };

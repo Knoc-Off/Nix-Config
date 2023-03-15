@@ -43,7 +43,7 @@ Terminal startup behavior
           #double_click: { threshold: 300 }
           #triple_click: { threshold: 300 }
         #};
-        window.opacity = 1;
+        window.opacity = 0.9;
         key_bindings = [
           {
             key = "F11";
@@ -60,11 +60,11 @@ Terminal startup behavior
             mods = "Control|Shift";
             action = "Paste";
           }
-          { 
-            key = "V";
-            mods = "Control";
-            action = "Paste";
-          }
+#          { 
+#            key = "V";
+#            mods = "Control";
+#            action = "Paste";
+#          }
           {
             key = "N";
             mods = "Alt";

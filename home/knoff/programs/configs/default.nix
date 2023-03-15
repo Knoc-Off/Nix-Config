@@ -3,6 +3,32 @@
   home.file."custom/configs/trillium.css".text = 
   ''
   :root {
+
+    --red: #${config.colorScheme.colors.base20} !important;;
+    --orange: #${config.colorScheme.colors.base22} !important;
+    --yellow: #${config.colorScheme.colors.base24} !important;
+    --green: #${config.colorScheme.colors.base26} !important;
+    --teal: #${config.colorScheme.colors.base28} !important;
+    --cyan: #${config.colorScheme.colors.base29} !important;
+    --blue: #${config.colorScheme.colors.base2A} !important;
+    --indigo: #${config.colorScheme.colors.base2C} !important;
+    --purple: #${config.colorScheme.colors.base2E} !important;
+    --pink: #${config.colorScheme.colors.base2F} !important;
+
+    --white: #${config.colorScheme.colors.base07} !important;
+    --gray: #${config.colorScheme.colors.base04} !important;
+    --gray-dark: #${config.colorScheme.colors.base03} !important;
+    --primary: #${config.colorScheme.colors.base0D} !important;
+    --secondary: #${config.colorScheme.colors.base05} !important;
+    --success: #${config.colorScheme.colors.base0B} !important;
+    --info: #${config.colorScheme.colors.base2A} !important;
+    --warning: #${config.colorScheme.colors.base24} !important;
+    --danger: #${config.colorScheme.colors.base20} !important;
+    --light: #${config.colorScheme.colors.base06} !important;
+    --dark: #${config.colorScheme.colors.base01} !important;
+
+
+
     --theme-style: dark;
 
     --main-font-family: Helvetica;
@@ -140,7 +166,7 @@
 
   .note-book-card {
     border-radius: 0px !important;
-    background-color: #${config.colorScheme.colors.base02} !important;
+    background-color: #${config.colorScheme.colors.base01} !important;
   }
 
   button.tree-floating-button:hover {
@@ -181,6 +207,24 @@
 
   .btn-primary.focus, .btn-primary:focus {
     box-shadow: none !important;
+  }
+
+  .title-bar-buttons {
+    visibility: hidden !important;
+    width: 0 !important;
+  }
+  .tab-row-widget .tab-row-widget-container {
+    height: 90% !important;
+  }
+
+.ck-content ul ul {
+  border-left: 2px solid #${config.colorScheme.colors.base04} !important;
+}
+
+  .bx.tree-item-button {
+    background-color: #${config.colorScheme.colors.base01} !important;
+    position: absolute !important;
+    right: 10px !important;
   }
 
   '';
