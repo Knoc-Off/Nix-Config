@@ -1,4 +1,7 @@
 {lib, ...}: {
+  imports = [
+    ./null-ls.nix
+  ];
   programs.nixvim = {
     maps.normal =
       lib.mapAttrs (key: luaFunc: {

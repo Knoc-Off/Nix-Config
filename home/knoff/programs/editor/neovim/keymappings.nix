@@ -16,7 +16,7 @@
       normal."<esc>" = ":noh<CR>";
 
       # fix Y behaviour
-      normal."Y" = "y$";
+      #normal."Y" = "y$";
 
       # back and fourth between the two most recent files
       normal."<C-c>" = ":b#<CR>";
@@ -54,6 +54,9 @@
       # Unbind pg-up/down to left/right (mainly for laptop)
       normal."<PageUp>" = "<Left>";
       normal."<PageDown>" = "<Right>";
+
+      # Allows replacing with clipboard without replacing clip
+      visual."p" = "\"_dP";
 
       # better indenting
       visual.">" = ">gv";

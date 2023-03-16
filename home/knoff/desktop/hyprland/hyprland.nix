@@ -1,4 +1,7 @@
 { config, inputs, lib, pkgs, ... }:
+let
+  inherit (config.colorscheme) colors;
+in
 {
   programs = {
     bash = {
@@ -14,7 +17,7 @@
   imports = [
     inputs.hyprland.homeManagerModules.default
     {
-      wayland.windowManager.hyprland = { 
+      wayland.windowManager.hyprland = {
         enable = true;
         systemdIntegration = true;
         #nvidiaPatches = false;
@@ -39,50 +42,50 @@
             kb_model =
             kb_options =
             kb_rules =
-  
+
             follow_mouse = 1
-  
+
             touchpad {
               natural_scroll = true
             }
-  
+
             sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
           }
 
           general {
             # See https://wiki.hyprland.org/Configuring/Variables/ for more
-  
+
             gaps_in = 2
             gaps_out = 4
             border_size = 2
-            col.active_border = rgba(595959aa) # rgba(00ff99ee) 45deg
-            col.inactive_border = rgba(50505020)
-  
+            col.active_border =  0xff${colors.base04}
+            col.inactive_border = 0xff${colors.base02}
+
             layout = dwindle
           }
 
           decoration {
             # See https://wiki.hyprland.org/Configuring/Variables/ for more
-  
+
             rounding = 5
             blur = true
             blur_size = 3
             blur_passes = 1
             blur_new_optimizations = true
-  
+
             drop_shadow = true
             shadow_range = 2
             shadow_render_power = 3
-            col.shadow = rgba(1a1a1aee)
-          }
+            col.shadow = 0xff${colors.base01}
+            }
 
           animations {
             enabled = true
-  
+
             # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
-  
+
             bezier = myBezier, 0.05, 0.9, 0.1, 1.05
-  
+
             animation = windows, 1, 7, myBezier
             animation = windowsOut, 1, 7, default, popin 80%
             animation = border, 1, 10, default
@@ -134,9 +137,9 @@
           #bind = $mainMod, R, exec, wofi --show drun
           bind = $mainMod, P, pseudo, # dwindle
           bind = $mainMod, J, togglesplit, # dwindle
-          bind = $mainMod, F, fullscreen, 
-          #bind = $mainMod, T, tile, 
-          
+          bind = $mainMod, F, fullscreen,
+          #bind = $mainMod, T, tile,
+
 
           binde=$mainMod SHIFT,right,resizeactive,25 0
           binde=$mainMod SHIFT,right,resizeactive,25 0
@@ -144,7 +147,7 @@
           binde=$mainMod SHIFT,up,resizeactive,0 -25
           binde=$mainMod SHIFT,down,resizeactive,0 25
 
-          # sudo light -A 10 # ADD 
+          # sudo light -A 10 # ADD
           # sudo light -O 10 # SUB
 
           binde=, XF86MonBrightnessDown, exec, sudo light -A 10
@@ -156,31 +159,31 @@
           # Example volume button that will activate even while an input inhibitor is active
           bindl=, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
 
-          
+
           # ~~~~~~~~~~~
 
 
           # will switch to a submap called resize
           bind = $mainMod, R, submap, resize
-          
+
           # will start a submap called "resize"
           submap=resize
-          
+
           # sets repeatable binds for resizing the active window
           binde=,right,resizeactive,10 0
           binde=,left,resizeactive,-10 0
           binde=,up,resizeactive,0 -10
           binde=,down,resizeactive,0 10
-          
+
           # use reset to go back to the global submap
-          bind=,escape,submap,reset 
-          
+          bind=,escape,submap,reset
+
           # will reset the submap, meaning end the current one and return to the global one
           submap=reset
 
           # ~~~~ Window Specific Rules ~~~~~
-          
-          
+
+
 
 
           # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -191,6 +194,12 @@
           bind = $mainMod ALT, right, movewindow, r
           bind = $mainMod ALT, up, movewindow, u
           bind = $mainMod ALT, down, movewindow, d
+
+          # Move focus with mainMod + arrow keys
+          bind = $mainMod, h, movefocus, l
+          bind = $mainMod, l, movefocus, r
+          bind = $mainMod, k, movefocus, u
+          bind = $mainMod, j, movefocus, d
 
           # Move focus with mainMod + arrow keys
           bind = $mainMod, left, movefocus, l

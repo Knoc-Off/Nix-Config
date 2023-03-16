@@ -9,21 +9,23 @@ export DIRENV_LOG_FORMAT=
 
 # Open in chrome:
 # I want to intigrate this into nixx, so you can specify arguments per package. or mute output.
-chrome() { nix-shell -p ungoogled-chromium --run "(chromium $1 &>/dev/null) &" }
+chrome() {
+  nix-shell -p ungoogled-chromium --run "(chromium $1 &>/dev/null) &"
+}
 
 # nix shell made "easy"
 nixx () {
-  sudo=0
-  package=$1; 
-  if [[ $1 == "sudo" ]]; then; 
-    package=$2 
-    sudo=1
+  _sudo=0
+  package=$1;
+  if [[ $1 == "sudo" ]]; then
+    package=$2
+    _sudo=1
   fi;
 
   # Check some local database/ dict, that takes package as arg, and then looks up executable.
-  if [[ sudo == 1 ]]; then;
+  if [[ $_sudo == 1 ]]; then
     nix-shell -p "$package" --run "sudo $package";
-    break
+    return
   fi
 
   nix-shell -p "$package" --run "$package";
@@ -33,7 +35,7 @@ PS1=" %F{3}%3~ %f%# "
 # Should search for a matching word in apps
 function nx () {
   config_dir="/home/knoff/Nix-Config" #$(realpath "~/nix-config")
-  if [ ! $1 ]; then
+  if [ ! "$1" ]; then
     exa -T $config_dir
   else
     case $1 in
@@ -61,11 +63,11 @@ function nx () {
 }
 
 function nix-shellgen () {
-  if [[ ! -f ./.envrc ]]; then 
+  if [[ ! -f ./.envrc ]]; then
     echo "use nix" > .envrc;
   fi
 
-  if [[ ! -f ./shell.nix ]]; then 
+  if [[ ! -f ./shell.nix ]]; then
     printf "{ pkgs ? import <nixpkgs> {},  unstable ? import <unstable> {}}:\npkgs.mkShell {\n  buildInputs = [\n  ];\n  shellHook = ''\n  '';\n}\n" > shell.nix;
   fi
   direnv allow
