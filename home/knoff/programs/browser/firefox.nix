@@ -24,10 +24,11 @@ in
   ];
 
   programs.firefox = {
+
     enable = true;
 
     profiles."testing" = {
-      id = 11;
+      id = 1;
       name = "cssTests";
       isDefault = false;
 

@@ -1,13 +1,12 @@
 {
   description = "lowfat config";
 
-  nixConfig =
-  {
-    trusted-substituters = [
-      "https://hyprland.cachix.org"
-      #"https://app.cachix.org/cache/jakestanger"
+  nixConfig = {
+    extra-substituters = [
+      "https://nix-community.cachix.org"
     ];
     extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
     ];
   };
@@ -17,7 +16,6 @@
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
     unstable-pkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
 
     # Community maintained vimPlugins
     nixneovimplugins.url = "github:jooooscha/nixpkgs-vim-extra-plugins";
@@ -30,7 +28,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-
+    # Prism
     prismlauncher.url = "github:PrismLauncher/PrismLauncher";
 
     hyprland.url = "github:hyprwm/hyprland/v0.17.0beta";
