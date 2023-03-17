@@ -10,12 +10,12 @@ let
 in
 {
   home.file."${profilePath}/chrome/sidebar-mods.css".text =
-    __readFile (__fetchurl {
+    builtins.readFile (builtins.fetchurl {
       url = "https://raw.githubusercontent.com/UnlimitedAvailableUsername/Edge-Mimicry-Tree-Style-Tab-For-Firefox/main/edge-mimicry/sidebar-mods.css";
       sha256 = "0r70aygb86gldpzcsv2jqr88hm612m1av7whgxh3qid8jkzwfhxb";
   });
   home.file."${profilePath}/chrome/treestyletab-edge-mimicry.css".text =
-    __readFile (__fetchurl {
+    builtins.readFile (builtins.fetchurl {
       url = "https://raw.githubusercontent.com/UnlimitedAvailableUsername/Edge-Mimicry-Tree-Style-Tab-For-Firefox/main/treestyletab-edge-mimicry.css";
       sha256 = "1pyn99widc3m9xlsklwd403q2srhnafa4a1kyh1b3pgd1w9g0bli";
   });
@@ -34,7 +34,7 @@ in
         darkreader
         sponsorblock
         i-dont-care-about-cookies
-        
+
         # Productivity
         violentmonkey
         tree-style-tab
@@ -45,7 +45,7 @@ in
         nighttab
         rust-search-extension
         translate-web-pages
-        
+
         # Browser Extensions
         augmented-steam
         consent-o-matic
@@ -54,7 +54,7 @@ in
         youtube-shorts-block
         protondb-for-steam
         lovely-forks
-        
+
         # Commented Out
         # bitwarden
         # canvasblocker
@@ -69,11 +69,21 @@ in
       name = "${profileApperenceName}";
       userChrome =
         ''
-          @import "sidebar-mods.css"; 
+          @import "sidebar-mods.css";
 
           #sidebar-header {
             display: none;
-	        }
+          }
+
+          #bookmarksPanel, #history-panel {
+            background-color: #1a1c1d !important;
+          }
+          #sidebar-header,#sidebar-search-container,#bookmarks-view-children,#historyTree {
+            color: #1a1c1d !important;
+            background-color: #1a1c1d !important;
+            -moz-appearance:none!important;
+            border-color:transparent !important;
+          }
 
           #sidebar-box{
             --sidebar-transition-delay: 100ms;
@@ -116,11 +126,11 @@ in
 
 
           /* Hide window controls */
-          .titlebar-buttonbox-container{ 
-            display:none 
+          .titlebar-buttonbox-container{
+            display:none
           }
-          .titlebar-spacer[type="post-tabs"]{ 
-            display:none 
+          .titlebar-spacer[type="post-tabs"]{
+            display:none
           }
 
           /* Color Configs */
@@ -134,7 +144,7 @@ in
             /* window and toolbar background */
             --lwt-accent-color: #${config.colorScheme.colors.base01} !important;
             --lwt-accent-color-inactive: #${config.colorScheme.colors.base00} !important;
-            --toolbar-bgcolor: #${config.colorScheme.colors.base01} !important;  
+            --toolbar-bgcolor: #${config.colorScheme.colors.base01} !important;
 
             /* tabs with system theme - text is not controlled by variable */
             --tab-selected-bgcolor: #${config.colorScheme.colors.base02} !important;
@@ -210,7 +220,7 @@ in
       settings = {
 
         # I think its a bad idea to set this, but it could allow pre-configureations to work nicer
-        #"browser.uiCustomization.state" 
+        #"browser.uiCustomization.state"
 
         # Make zoom more gradual
         "toolkit.zoomManager.zoomValues" = "0.30,0.32,0.34,0.36,0.38,0.40,0.42,0.44,0.46,0.48,0.50,0.52,0.54,0.56,0.58,0.60,0.62,0.64,0.66,0.68,0.70,0.72,0.74,0.76,0.78,0.80,0.82,0.84,0.86,0.88,0.90,0.92,0.94,0.96,0.98,1.0,1.02,1.04,1.06,1.08,1.10,1.12,1.14,1.16,1.18,1.20,1.22,1.24,1.26,1.28,1.30,1.32,1.34,1.36,1.38,1.40,1.42,1.44,1.46,1.48,1.50,1.52,1.54,1.56,1.58,1.60,1.62,1.64,1.66,1.68,1.70,1.72,1.74,1.76,1.78,1.80,1.82,1.84,1.86,1.88,1.90,1.92,1.94,1.96,1.98,2";
