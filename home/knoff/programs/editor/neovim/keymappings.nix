@@ -1,15 +1,11 @@
-{
-  config,
-  lib,
-  ...
-}: {
+{ config, lib, ... }: {
   programs.nixvim = {
     globals = {
       mapleader = " ";
       maplocalleader = " ";
     };
 
-    maps = config.nixvim.helpers.mkMaps {silent = true;} {
+    maps = config.nixvim.helpers.mkMaps { silent = true; } {
       normal."<Space>" = "<NOP>";
 
       # Esc to clear search results
@@ -28,6 +24,9 @@
       # save by Space+s or Ctrl+s
       normal."<leader>s" = ":w<CR>";
       normal."<C-s>" = ":w<CR>";
+
+      # Format
+      normal."<leader>f" = ":lua vim.lsp.buf.format()<CR>";
 
       # better window movement TODO change
       # normal."<C-h>" = "<C-w>h";
@@ -56,7 +55,7 @@
       normal."<PageDown>" = "<Right>";
 
       # Allows replacing with clipboard without replacing clip
-      visual."p" = "\"_dP";
+      visual."p" = ''"_dP'';
 
       # better indenting
       visual.">" = ">gv";

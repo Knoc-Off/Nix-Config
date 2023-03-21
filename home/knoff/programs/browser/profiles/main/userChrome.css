@@ -124,30 +124,3 @@ also fallback color for border around selected tab */
 #webext-panels-browser {
   background: #${config.colorScheme.colors.base02} !important;
 }
-
-:host, :root {
-  --in-content-page-background: #${config.colorScheme.colors.base01} !important;
-  --in-content-page-color: #${config.colorScheme.colors.base06} !important;
-  --in-content-deemphasized-text: #${config.colorScheme.colors.base05} !important;
-  --in-content-box-background: #${config.colorScheme.colors.base02} !important;
-  --in-content-box-background-odd: #${config.colorScheme.colors.base03} !important;
-  --in-content-box-info-background: #${config.colorScheme.colors.base04} !important;
-  --in-content-border-color: #${config.colorScheme.colors.base05} !important;
-  --in-content-border-hover: #${config.colorScheme.colors.base06} !important;
-  --in-content-border-invalid: #${config.colorScheme.colors.base08} !important;
-  --in-content-error-text-color: #${config.colorScheme.colors.base08} !important;
-  --in-content-button-background: #${config.colorScheme.colors.base03} !important;
-  --in-content-button-background-hover: #${config.colorScheme.colors.base04} !important;
-  --in-content-button-background-active: #${config.colorScheme.colors.base03} !important;
-  --in-content-icon-color:  #${config.colorScheme.colors.base06} !important;;
-  --in-content-primary-button-text-color: #${config.colorScheme.colors.base06} !important;
-  --in-content-primary-button-background: #${config.colorScheme.colors.base02} !important;
-  --in-content-primary-button-background-hover: #${config.colorScheme.colors.base03} !important;
-  --in-content-primary-button-background-active: #${config.colorScheme.colors.base02} !important;
-  --in-content-danger-button-background: #${config.colorScheme.colors.base08} !important;
-  --in-content-danger-button-background-hover: #ffbdc5;
-  --in-content-danger-button-background-active: #ffdfe7;
-  --in-content-table-background: #${config.colorScheme.colors.base01} !important;
-  --card-outline-color: var(--grey-60);
-  --dialog-warning-text-color: var(--red-40);
-}

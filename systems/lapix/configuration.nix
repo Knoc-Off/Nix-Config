@@ -45,8 +45,6 @@
     gnome3.adwaita-icon-theme  # default gnome cursors
     xdg-desktop-portal-wlr # Screen Rec.
 
-    swaylock # Screen-locking?
-    swayidle
 
     slurp # screenshot functionality
     grim
@@ -55,7 +53,7 @@
     mako # Notifications
   ];
 
-  programs.light.enable = true; # brightness? 
+  programs.light.enable = true; # brightness?
 
   services.dbus.enable = true;
   xdg.portal = {

@@ -40,7 +40,7 @@ function nx () {
   else
     case $1 in
       rb)
-        sudo nixos-rebuild switch --flake $config_dir/#knoff
+        sudo nixos-rebuild switch --flake $config_dir/#lapix
         ;;
       rh)
         home-manager switch --flake $config_dir/#knoff@lapix

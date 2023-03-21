@@ -2,6 +2,7 @@
 { inputs, lib, config, pkgs, ... }: {
   imports = [
     ./programs
+    ./services
     ./desktop
     ./enviroment.nix
   ];

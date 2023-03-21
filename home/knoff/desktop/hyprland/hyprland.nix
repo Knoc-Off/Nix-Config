@@ -1,8 +1,6 @@
 { config, inputs, lib, pkgs, ... }:
-let
-  inherit (config.colorscheme) colors;
-in
-{
+let inherit (config.colorscheme) colors;
+in {
   programs = {
     bash = {
       initExtra = ''
@@ -12,7 +10,8 @@ in
       '';
     };
   };
-  systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
+  systemd.user.targets.hyprland-session.Unit.Wants =
+    [ "xdg-desktop-autostart.target" ];
 
   imports = [
     inputs.hyprland.homeManagerModules.default
@@ -218,6 +217,12 @@ in
           bind = $mainMod, 8, workspace, 8
           bind = $mainMod, 9, workspace, 9
           bind = $mainMod, 0, workspace, 10
+
+
+          # Volume
+          binde=, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+          binde=, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+          binde=, XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 
           # Move active window to a workspace with mainMod + SHIFT + [0-9]
           bind = $mainMod SHIFT, 1, movetoworkspace, 1

@@ -71,6 +71,7 @@
       softtabstop = 0; # If non-zero, number of spaces to insert for a <Tab> (local to buffer)
       expandtab = true; # Expand <Tab> to spaces in Insert mode (local to buffer)
       autoindent = true; # Do clever autoindenting
+      cinkeys = ''-=0#''; # Dont delete comment indents
 
       # Folding options
       foldlevel = 99; # Folds with a level higher than this number will be closed
