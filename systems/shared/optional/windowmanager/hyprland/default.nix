@@ -6,5 +6,9 @@
   ];
   environment.systemPackages = with pkgs; [
     hyprpaper
+    swaylock
+    swayidle
   ];
+
+  security.pam.services.swaylock = {};
 }

@@ -27,6 +27,7 @@
 
       # Format
       normal."<leader>f" = ":lua vim.lsp.buf.format()<CR>";
+      normal."<leader>w" = ":lua vim.lsp.buf.format()<CR>:w<CR>";
 
       # better window movement TODO change
       # normal."<C-h>" = "<C-w>h";

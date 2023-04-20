@@ -31,6 +31,7 @@
       base0D = "#3f84ba";
       base0E = "#6177a6";
       base0F = "#766d91";
+
       # ROYGBIV, for more specific colors, Should i just name the variables red...etc
       base10 = "#ff595e";
       base11 = "#ff7655";
@@ -48,6 +49,7 @@
       base1D = "#565aa0";
       base1E = "#6a4c93";
       base1F = "#7d63a1";
+
       # wont be compatible but eh who cares.
       base20 = "#cc4449";
       base21 = "#cc5c42";

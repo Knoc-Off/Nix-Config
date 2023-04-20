@@ -1,4 +1,4 @@
-{ inputs, pkgs, unstable, libs, config, ... }:
+{ inputs, pkgs, libs, config, ... }:
 {
   imports = [
     # Terminal-related packages
@@ -26,7 +26,7 @@
 
   home.packages = with pkgs; [
     # Applications
-    unstable.trilium-desktop
+    trilium-desktop
     element-desktop
     dolphin
 
@@ -44,7 +44,7 @@
 
   services.easyeffects = {
     enable = true;
-    package = unstable.easyeffects;
+    package = pkgs.easyeffects;
   };
 
   programs.exa = {

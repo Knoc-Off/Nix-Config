@@ -52,7 +52,6 @@ in {
         # Productivity
         violentmonkey
         tree-style-tab
-        fastforward
         smart-referer
         user-agent-string-switcher
         single-file
@@ -73,7 +72,6 @@ in {
         youtube-shorts-block
 
       ];
-
       userChrome = ''
         @import "sidebar-mods.css";
 

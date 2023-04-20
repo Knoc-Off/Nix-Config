@@ -45,14 +45,14 @@ in {
         sponsorblock
         i-dont-care-about-cookies
         consent-o-matic
-        # bitwarden
-        # canvasblocker
-        # cookie-autodelete
+
+        bitwarden
+        canvasblocker
+        cookie-autodelete
 
         # Productivity
         violentmonkey
         tree-style-tab
-        fastforward
         smart-referer
         user-agent-string-switcher
         single-file
@@ -61,17 +61,13 @@ in {
         translate-web-pages
 
         # Steam-related packages
-        augmented-steam
-        protondb-for-steam
-        steam-database
+        # augmented-steam
+        # protondb-for-steam
+        # steam-database
 
         # Github-related packages
         enhanced-github
         lovely-forks
-
-        # Youtube-related packages
-        youtube-shorts-block
-
       ];
 
       userChrome = ''
@@ -82,11 +78,11 @@ in {
         }
 
         #bookmarksPanel, #history-panel {
-          background-color: #1a1c1d !important;
+          background-color: #${config.colorScheme.colors.base01} !important;
         }
         #sidebar-header,#sidebar-search-container,#bookmarks-view-children,#historyTree {
-          color: #1a1c1d !important;
-          background-color: #1a1c1d !important;
+          color: #${config.colorScheme.colors.base01} !important;
+          background-color: #${config.colorScheme.colors.base01} !important;
           -moz-appearance:none!important;
           border-color:transparent !important;
         }
