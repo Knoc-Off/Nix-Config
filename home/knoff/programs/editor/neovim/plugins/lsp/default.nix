@@ -1,10 +1,8 @@
-{lib, ...}: {
-  imports = [
-    ./null-ls.nix
-  ];
+{ lib, ... }: {
+  # imports = [ ./null-ls.nix ];
   programs.nixvim = {
-    maps.normal =
-      lib.mapAttrs (key: luaFunc: {
+    maps.normal = lib.mapAttrs
+      (key: luaFunc: {
         silent = true;
         action = luaFunc;
         lua = true;
@@ -29,9 +27,13 @@
         enable = true;
 
         servers = {
+          rnix-lsp = {
+            enable = true;
+            autostart = true;
+          };
           bashls.enable = true;
           clangd.enable = true;
-          nil_ls.enable = true;
+          # nil_ls.enable = true;
           lua-ls.enable = true;
           pylsp = import ./pylsp-settings.nix;
           texlab.enable = true;
