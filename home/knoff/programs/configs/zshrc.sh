@@ -6,6 +6,9 @@ eval "$(direnv hook zsh)"
 # Silence Direnv output:
 export DIRENV_LOG_FORMAT=
 
+new_kitty() {
+    kitty --detach --directory "$(pwd)"
+}
 
 # Open in chrome:
 # I want to intigrate this into nixx, so you can specify arguments per package. or mute output.
@@ -47,6 +50,11 @@ function nx () {
         ;;
       rt)
         sudo nixos-rebuild test --flake $config_dir/#knoff
+        ;;
+      cd)
+        file=$(fd . $config_dir/ --type=d -E .git -H | fzf --query "$@")
+        if [[ $file == "" ]]; then return; fi
+        cd "$file"
         ;;
       cf)
         file=$(fd . $config_dir/*/configs/ -E .git -E .nix -H | fzf --query "$@")

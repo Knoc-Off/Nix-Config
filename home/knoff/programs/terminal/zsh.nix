@@ -14,6 +14,7 @@
       imagemagick # Required for catomg
       thefuck # If you forget sudo or something
       qrencode
+      starship
     ];
 
     programs.starship = {

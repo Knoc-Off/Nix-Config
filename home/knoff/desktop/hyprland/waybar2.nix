@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  terminal = "${pkgs.alacritty}/bin/alacritty";
+  terminal = "${pkgs.kitty}/bin/kitty";
   systemMonitor = "${terminal} -e btop";
 in
 {

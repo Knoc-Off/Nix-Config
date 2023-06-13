@@ -15,14 +15,16 @@
   inputs = {
 
     # Nixpkgs
-    stable-pkgs.url = "github:nixos/nixpkgs/nixos-22.11";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    # Community maintained vimPlugins
-    #nixneovimplugins.url = "github:jooooscha/nixpkgs-vim-extra-plugins";
+    #stable-pkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    bl-pkgs.url = "github:nixos/nixpkgs/nixos-unstable"; # can be updated more often
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
 
     # Neovim nix module
-    nixvim.url = "github:pta2002/nixvim";
+    nixvim =
+      {
+        url = "github:pta2002/nixvim";
+        #inputs.pkgs.follows = "nixpkgs";
+      };
 
     # Firefox add-ons packaged for Nix
     firefox-addons = {
@@ -33,8 +35,13 @@
     # Prism Launcher
     prismlauncher.url = "github:PrismLauncher/PrismLauncher";
 
-    # Hyprland (custom Linux distribution)
-    hyprland.url = "github:hyprwm/hyprland/v0.17.0beta";
+    #Hyprland (custom Linux distribution)
+    hyprland = {
+      url = "github:hyprwm/hyprland";
+      #inputs.nixpkgs.follows = "nixpkgs";
+      #inputs.nixpkgs.follows = "nixpkgs";
+    };
+    #hyprland.url = "github:hyprwm/Hyprland";
 
     # Home Manager (for managing user environments using Nix)
     home-manager.url = "github:nix-community/home-manager";
@@ -47,7 +54,7 @@
 
   # Define the outputs of the flake
   outputs =
-    inputs@{ self, nix-colors, nixpkgs, stable-pkgs, home-manager, ... }: {
+    inputs@{ self, nix-colors, nixpkgs, bl-pkgs, home-manager, ... }: {
 
       # Add an overlay to nixpkgs with your custom package
       overlay = final: prev: { };
@@ -56,7 +63,12 @@
       nixosConfigurations = {
         lapix = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
-          modules = [ ./systems/lapix ]; # Laptop configuration
+          modules = [
+            ./systems/lapix
+            #hyprland.nixosModules.default
+            #{ programs.hyprland.enable = true; }
+
+          ]; # Laptop configuration
         };
         desktop = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
@@ -65,38 +77,39 @@
       };
 
       # Define Home Manager configurations for the user "knoff" on two systems (lapix and desktop)
-      homeConfigurations = let
-        system = "x86_64-linux";
-        overlay = self.overlay;
-        pkgs = import nixpkgs {
-          inherit system;
-          config = { allowUnfree = true; };
-          overlays = [ overlay ];
-        };
-        stable = import stable-pkgs {
-          inherit system;
-          config = { allowUnfree = true; };
-          overlays = [ overlay ];
-        };
-
-      in {
-        "knoff@lapix" = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [ ./home/knoff/lapix.nix ];
-          extraSpecialArgs = {
-            inherit inputs;
-            inherit stable;
-            inherit nix-colors;
+      homeConfigurations =
+        let
+          system = "x86_64-linux";
+          overlay = self.overlay;
+          pkgs = import nixpkgs {
+            inherit system;
+            config = { allowUnfree = true; };
+            overlays = [ overlay ];
+          };
+          bled = import bl-pkgs {
+            inherit system;
+            config = { allowUnfree = true; };
+            overlays = [ overlay ];
+          };
+        in
+        {
+          "knoff@lapix" = home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            modules = [ ./home/knoff/lapix.nix ];
+            extraSpecialArgs = {
+              inherit inputs;
+              inherit bled;
+              inherit nix-colors;
+            };
+          };
+          "knoff@desktop" = home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            modules = [ ./home/knoff/desktop.nix ];
+            extraSpecialArgs = {
+              inherit inputs;
+              inherit bled;
+            };
           };
         };
-        "knoff@desktop" = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [ ./home/knoff/desktop.nix ];
-          extraSpecialArgs = {
-            inherit inputs;
-            inherit stable;
-          };
-        };
-      };
     };
 }

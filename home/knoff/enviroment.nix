@@ -4,7 +4,7 @@
     sessionVariables = {
       # Editor and shell
       EDITOR = "nvim";
-      TERMINAL = "alacritty";
+      TERMINAL = "kitty";
 
       # Browser
       BROWSER = "firefox";
@@ -27,7 +27,7 @@
       WLR_RENDERER = "vulkan";
       #__NV_PRIME_RENDER_OFFLOAD="1";
       # WLR_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card0";
-      # WLR_NO_HARDWARE_CURSORS = "1"; # if no cursor,uncomment this line  
+      # WLR_NO_HARDWARE_CURSORS = "1"; # if no cursor,uncomment this line
 
       # Java GUI settings
       _JAVA_AWT_WM_NONREPARENTING = "1";
@@ -47,7 +47,7 @@
 
 #      EDITOR = "nvim";
 #      BROWSER = "firefox";
-#      TERMINAL = "alacritty";
+#      TERMINAL = "kitty";
 #      # GTK_IM_MODULE = "fcitx5";
 #      # QT_IM_MODULE = "fcitx5";
 #      # XMODIFIERS = "@im=fcitx5";
@@ -60,7 +60,7 @@
 #      QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
 #      QT_AUTO_SCREEN_SCALE_FACTOR = "1";
 #      # WLR_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card0";
-#      # WLR_NO_HARDWARE_CURSORS = "1"; # if no cursor,uncomment this line  
+#      # WLR_NO_HARDWARE_CURSORS = "1"; # if no cursor,uncomment this line
 #      # GBM_BACKEND = "nvidia-drm";
 #      CLUTTER_BACKEND = "wayland";
 #      # __GLX_VENDOR_LIBRARY_NAME = "nvidia";

@@ -1,12 +1,9 @@
-{ pkgs, config, nix-color, lib, ...}:
+{ pkgs, config, nix-color, lib, ... }:
 let
   inherit (config.colorscheme) colors;
 in
 {
-#    sessionVariables = {
-#      TERMINAL = "kitty -1";
-#    };
-
+  imports = [ ./tab_bar.nix ];
 
   programs.kitty = {
     enable = true;
@@ -14,9 +11,17 @@ in
       name = "FiraCode"; #config.fontProfiles.monospace.family;# Smart
       size = 15;
     };
+    keybindings = {
+      "super+q" = "launch --cwd=current --type os-window";
+      "ctrl+l" =  "clear_terminal to_cursor active";
+      #"ctrl+c" =  "copy_or_interrupt";
+    };
     settings = {
-      tab_bar_style = "hidden";
-      window_padding_width = 5;
+      tab_bar_style = "custom";
+      tab_bar_margin_height = "0.0 0.0";
+      tab_title_template = " {index}: {f'{title[:6]}…{title[-6:]}' if title.rindex(title[-1]) + 1 > 13 else title.center(7)} ";
+
+      window_padding_width = 0;
       foreground = "#${colors.base06}";
       background = "#${colors.base02}";
       selection_background = "#${colors.base04}";
@@ -27,7 +32,7 @@ in
       active_border_color = "#${colors.base03}";
       inactive_border_color = "#${colors.base01}";
       active_tab_background = "#${colors.base02}";
-      active_tab_foreground = "#${colors.base06}";
+      active_tab_foreground = "#${colors.base0D}";
       inactive_tab_background = "#${colors.base01}";
       inactive_tab_foreground = "#${colors.base05}";
       tab_bar_background = "#${colors.base03}";

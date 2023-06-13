@@ -8,8 +8,9 @@
     enable = true;
     #iconPath = "${config.gtk.iconTheme.package}/share/icons/Papirus-Dark";
     #font = "${config.fontProfiles.regular.family} 12";
+
     padding = "10,20";
-    anchor = "top-center";
+    anchor = "top-left";
     width = 400;
     height = 150;
     borderSize = 2;

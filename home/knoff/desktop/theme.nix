@@ -4,11 +4,6 @@
     nix-colors.homeManagerModule
   ];
 
-  # colorScheme = nix-colors.colorSchemes.dracula;
-
-  # colorScheme = nix-colors.lib-core.schemeFromYAML "cool-scheme"
-  # (builtins.readFile (builtins.fetchUrl "https://raw.githubusercontent.com/chriskempson/base16-default-schemes/master/default-dark.yaml"));
-
   colorScheme = {
     slug = "My-Theme";
     name = "my-theme";

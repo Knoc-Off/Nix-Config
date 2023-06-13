@@ -28,7 +28,6 @@
     # Applications
     trilium-desktop
     element-desktop
-    dolphin
 
     # Command-line Utilities
     tealdeer
@@ -37,10 +36,17 @@
     btop
     bat
     tiv # image viewer
+    ripgrep
 
     # Miscellaneous
     fuzzel
+
+    # File-Managers
+    xfce.thunar
+    pcmanfm
+
   ];
+
 
   services.easyeffects = {
     enable = true;

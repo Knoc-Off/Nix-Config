@@ -15,7 +15,8 @@
       updatetime = 100; # Faster completion
       hidden = true; # Keep closed buffer open in the background
       clipboard = "unnamed"; # Use system clipboard
-      mouse = "a"; # Enable mouse control
+      #mouse = "a"; # Enable mouse control
+      mouse = ""; # Enable mouse control
       laststatus = 3; # When to use a status line for the last window
       fileencoding = "utf-8"; # File-content encoding for the current buffer
       termguicolors = true; # Enables 24-bit RGB color in the |TUI|

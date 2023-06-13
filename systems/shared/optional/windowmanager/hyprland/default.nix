@@ -2,7 +2,7 @@
 {
   imports = [
     ./hyprland.nix
-    ./waybar.nix
+    #./waybar.nix
   ];
   environment.systemPackages = with pkgs; [
     hyprpaper

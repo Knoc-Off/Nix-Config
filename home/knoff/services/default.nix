@@ -13,6 +13,8 @@ in {
     show-failed-attempts = true;
   };
 
+
+
   services.swayidle = {
     enable = true;
     events = [

@@ -1,6 +1,10 @@
 { config, inputs, lib, pkgs, ... }:
-let inherit (config.colorscheme) colors;
-in {
+let
+  inherit (config.colorscheme) colors;
+  #jq = "${pkgs.jq}/bin/jq";
+  fuzzel = "${pkgs.fuzzel}/bin/fuzzel";
+in
+{
   programs = {
     bash = {
       initExtra = ''
@@ -60,6 +64,7 @@ in {
             col.active_border =  0xff${colors.base04}
             col.inactive_border = 0xff${colors.base02}
 
+            #cursor_inactive_timeout=4
             layout = dwindle
           }
 
@@ -67,16 +72,42 @@ in {
             # See https://wiki.hyprland.org/Configuring/Variables/ for more
 
             rounding = 5
-            blur = true
-            blur_size = 3
-            blur_passes = 1
+            blur=true
+            blur_size=5
+            blur_passes=3
+            blur_ignore_opacity=true
             blur_new_optimizations = true
+
+            inactive_opacity=0.9
 
             drop_shadow = true
             shadow_range = 2
             shadow_render_power = 3
             col.shadow = 0xff${colors.base01}
             }
+
+
+
+#          animations {
+#            enabled=true
+#
+#            bezier=easein,0.11, 0, 0.5, 0
+#            bezier=easeout,0.5, 1, 0.89, 1
+#            bezier=easeinout,0.45, 0, 0.55, 1
+#
+#            animation=windowsIn,1,3,easeout,slide
+#            animation=windowsOut,1,3,easein,slide
+#            animation=windowsMove,1,3,easeout
+#
+#            animation=fadeIn,1,3,easeout
+#            animation=fadeOut,1,3,easein
+#            animation=fadeSwitch,1,3,easeout
+#            animation=fadeShadow,1,3,easeout
+#            animation=fadeDim,1,3,easeout
+#            animation=border,1,3,easeout
+#
+#            animation=workspaces,1,2,easeout,slide
+#          }
 
           animations {
             enabled = true
@@ -115,6 +146,9 @@ in {
             sensitivity = -0.5
           }
 
+          windowrule=float,^mako$
+          windowrule=pin,^mako$
+
           # Example windowrule v1
           # windowrule = float, ^(kitty)$
           # Example windowrule v2
@@ -126,18 +160,26 @@ in {
           $mainMod = SUPER
 
           # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-          bind = $mainMod, Q, exec, kitty
-          # bind = ALT, SPACE, exec, fuzzel
-          bind = $mainMod, SPACE, exec, fuzzel
+          bind = $mainMod, SPACE, exec, ${fuzzel} -b ${colors.base02}DD -t ${colors.base06}DD -m ${colors.base04}DD -C ${colors.base05}DD -s ${colors.base03}DD -S ${colors.base07}DD -M ${colors.base07}DD
           bind = $mainMod, C, killactive,
-          bind = $mainMod, M, exit,
-          bind = $mainMod, E, exec, dolphin
+          bind = $mainMod, E, exit,
           bind = $mainMod, V, togglefloating,
           #bind = $mainMod, R, exec, wofi --show drun
           bind = $mainMod, P, pseudo, # dwindle
-          bind = $mainMod, J, togglesplit, # dwindle
-          bind = $mainMod, F, fullscreen,
+          bind = $mainMod, S, togglesplit, # dwindle
+          bind = $mainMod, F, fullscreen, 0
           #bind = $mainMod, T, tile,
+
+          # What does this do
+          bind=SUPER,g,togglegroup
+          bind=SUPER,apostrophe,changegroupactive,f
+          bind=SUPERSHIFT,apostrophe,changegroupactive,b
+
+          bind=SUPER,minus,splitratio,-0.25
+          bind=SUPERSHIFT,minus,splitratio,-0.3333333
+
+          bind=SUPER,equal,splitratio,0.25
+          bind=SUPERSHIFT,equal,splitratio,0.3333333
 
 
           binde=$mainMod SHIFT,right,resizeactive,25 0
@@ -244,8 +286,22 @@ in {
           bindm = $mainMod, mouse:272, movewindow
           bindm = $mainMod, mouse:273, resizewindow
 
+          # Startup
           exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
           exec-once=hyprpaper
+          #exec-once=swayidle -w
+
+          # Keyboard controls (brightness, media, sound, etc)
+          bind=,XF86MonBrightnessUp,exec,light -A 10
+          bind=,XF86MonBrightnessDown,exec,light -U 10
+
+          # Screenshots
+          bind=,Print,exec,grimblast --notify copy output
+          bind=SHIFT,Print,exec,grimblast --notify copy active
+          bind=CONTROL,Print,exec,grimblast --notify copy screen
+          bind=SUPER,Print,exec,grimblast --notify copy window
+          bind=ALT,Print,exec,grimblast --notify copy area
+
 
         '';
 
