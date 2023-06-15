@@ -65,9 +65,6 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./systems/lapix
-            #hyprland.nixosModules.default
-            #{ programs.hyprland.enable = true; }
-
           ]; # Laptop configuration
         };
         desktop = nixpkgs.lib.nixosSystem {
@@ -108,6 +105,7 @@
             extraSpecialArgs = {
               inherit inputs;
               inherit bled;
+              inherit nix-colors;
             };
           };
         };

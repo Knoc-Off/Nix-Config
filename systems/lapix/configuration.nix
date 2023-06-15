@@ -45,6 +45,8 @@
     gnome3.adwaita-icon-theme  # default gnome cursors
     xdg-desktop-portal-wlr # Screen Rec.
 
+    swaylock # Screen-locking?
+    swayidle
 
     slurp # screenshot functionality
     grim

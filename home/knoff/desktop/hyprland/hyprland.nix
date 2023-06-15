@@ -229,6 +229,27 @@ in
 
           # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+          # ~~~~ Enviroment Variables ~~~~~
+          env = GDK_BACKEND,wayland,x11
+          env= QT_QPA_PLATFORM,wayland;xcb
+          env = SDL_VIDEODRIVER,wayland
+          env = CLUTTER_BACKEND,wayland
+          env = XDG_CURRENT_DESKTOP,Hyprland
+          env = XDG_SESSION_TYPE,wayland
+          env = XDG_SESSION_DESKTOP,Hyprland
+          env = QT_AUTO_SCREEN_SCALE_FACTOR,1
+          env = GTK_THEME,Breeze-Dark
+          env = QT_STYLE_OVERRIDE,Breeze-Dark
+          env = XCURSOR_THEME,Future-Cursors
+          env = XCURSOR_SIZE,24
+          env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
+          #exec-once=gsettings set org.gnome.desktop.interface cursor-theme 'Future-cursors'
+          #exec-once=hyprctl setcursor Future-cursors 24
+          monitor=eDP-1,highres,auto,1.0
+
+
+          # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
           # Move focus with mainMod + arrow keys
           bind = $mainMod ALT, left, movewindow, l

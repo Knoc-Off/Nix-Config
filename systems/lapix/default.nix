@@ -5,9 +5,8 @@
     ../shared/optional/filemanager.nix
 
     ../shared/optional/windowmanager/hyprland
-
-
     ../shared/optional/zsh.nix
+
     ./networking
     ./system
     ./services
