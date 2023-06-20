@@ -1,4 +1,4 @@
-{ inputs, pkgs, libs, config, ... }:
+{ inputs, pkgs, libs, bled, config, ... }:
 {
   imports = [
     # Terminal-related packages
@@ -50,7 +50,7 @@
 
   services.easyeffects = {
     enable = true;
-    package = pkgs.easyeffects;
+    package = bled.easyeffects;
   };
 
   programs.exa = {
