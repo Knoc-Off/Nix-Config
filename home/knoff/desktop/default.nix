@@ -1,7 +1,6 @@
 { nix-colors, lib, config, pkgs, ... }:
 {
   imports = [
-    ./hyprland
     ./theme.nix
   ];
   services.mako = {

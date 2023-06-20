@@ -4,7 +4,6 @@
     ./programs
     ./services
     ./desktop
-    ./desktop/hyprland
     ./enviroment.nix
   ];
 
