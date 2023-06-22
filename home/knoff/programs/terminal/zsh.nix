@@ -14,11 +14,11 @@
       imagemagick # Required for catomg
       thefuck # If you forget sudo or something
       qrencode
-      starship
+      #starship
     ];
 
     programs.starship = {
-      enable = true;
+      enable = false;
       enableZshIntegration = true;
       settings = {
         format = lib.concatStrings [
