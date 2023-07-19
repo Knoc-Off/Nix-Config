@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   imports = [
     ./autocommands.nix
     ./completion.nix
@@ -18,8 +18,6 @@
     enable = true;
     viAlias = true;
     vimAlias = true;
-
-    luaLoader.enable = true;
 
     # Highlight and remove extra white spaces
     highlight.ExtraWhitespace.bg = "red";

@@ -1,8 +1,9 @@
 { inputs, lib, config, pkgs, ... }: {
 
   imports = [
-    # hardware ssd?
-    # AMD GPU?
+    inputs.hardware.nixosModules.common-cpu-amd
+    inputs.hardware.nixosModules.common-gpu-amd
+    inputs.hardware.nixosModules.common-pc-ssd
   ];
 
   services.flatpak.enable = true;
@@ -17,11 +18,16 @@
     enableDefaultFonts = true;
     fonts = with pkgs; [
       hack-font
-      noto-fonts-emoji
+      fira-code-symbols
+      (nerdfonts.override { fonts = [ "FiraCode" ]; })
     ];
+    fontconfig = {
+      defaultFonts = {
+        monospace = [ "FiraCode" ];
+      };
+    };
   };
 
-  # should be moved elsewhere
   programs.steam = {
     enable = true;
   };
@@ -33,7 +39,6 @@
     curl
     git
     trashy
-    alacritty # Dont need this, HM instead.
 
     dracula-theme # gtk theme
     gnome3.adwaita-icon-theme  # default gnome cursors
@@ -49,9 +54,9 @@
     mako # Notifications
   ];
 
-  programs.light.enable = true; # brightness? 
+  programs.light.enable = true; # brightness?
 
-  # Figure out how to delete users... 
+  # Figure out how to delete users...
   users.users = {
     niko = {
       shell = pkgs.zsh;

@@ -35,13 +35,10 @@
     # Prism Launcher
     prismlauncher.url = "github:PrismLauncher/PrismLauncher";
 
-    #Hyprland (custom Linux distribution)
+    # Hyprland
     hyprland = {
       url = "github:hyprwm/hyprland";
-      #inputs.nixpkgs.follows = "nixpkgs";
-      #inputs.nixpkgs.follows = "nixpkgs";
     };
-    #hyprland.url = "github:hyprwm/Hyprland";
 
     # Home Manager (for managing user environments using Nix)
     home-manager.url = "github:nix-community/home-manager";
@@ -65,14 +62,13 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./systems/lapix
-            #hyprland.nixosModules.default
-            #{ programs.hyprland.enable = true; }
-
-          ]; # Laptop configuration
+          ];
         };
         desktop = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
-          modules = [ ./systems/desktop ]; # Desktop configuration
+          modules = [
+            ./systems/desktop
+          ];
         };
       };
 
@@ -108,6 +104,7 @@
             extraSpecialArgs = {
               inherit inputs;
               inherit bled;
+              inherit nix-colors;
             };
           };
         };

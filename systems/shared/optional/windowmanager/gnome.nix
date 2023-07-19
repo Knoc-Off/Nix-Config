@@ -1,4 +1,4 @@
-{inputs, lib, pkgs, ...}: 
+{inputs, lib, pkgs, ...}:
 {
 
   services.xserver.enable = true;

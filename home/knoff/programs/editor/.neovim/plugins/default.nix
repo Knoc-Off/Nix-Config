@@ -1,26 +1,28 @@
 {
   imports = [
-
     ./extra.nix
 
     ./barbar.nix
     ./comment.nix
     ./floaterm.nix
     ./harpoon.nix
-    ./lsp.nix
+
+    ./lsp
     ./lualine.nix
     ./markdown-preview.nix
+
     ./neorg.nix
-    ./neo-tree.nix
+    ./nvim-tree.nix
     ./startify.nix
     ./tagbar.nix
     ./telescope.nix
-    ./treesitter.nix
     ./vimtex.nix
+
+    ./treesitter.nix
   ];
 
   programs.nixvim = {
-    colorschemes.gruvbox.enable = true;
+    colorscheme = "darkplus";
 
     plugins = {
       gitsigns = {

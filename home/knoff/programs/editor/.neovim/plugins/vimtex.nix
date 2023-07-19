@@ -31,16 +31,16 @@
       };
     };
 
-    maps.normal = {
-      # "<C-m>" = {
-      #   action = ":VimtexToggle<CR>";
-      #   silent = true;
-      # };
-      "m" = {
-        action = ":VimtexView<CR>";
-        silent = true;
-      };
-    };
+#    maps.normal = {
+#      # "<C-m>" = {
+#      #   action = ":VimtexToggle<CR>";
+#      #   silent = true;
+#      # };
+#      "m" = {
+#        action = ":VimtexView<CR>";
+#        silent = true;
+#      };
+#    };
 
     autoCmd = [
       {

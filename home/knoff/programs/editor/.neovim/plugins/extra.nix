@@ -17,17 +17,6 @@
       })
 
       (pkgs.vimUtils.buildVimPlugin rec {
-        pname = "copilot";
-        version = "e48bd7020a98be217d85c006a298656294fd6210";
-        src = pkgs.fetchFromGitHub {
-          owner = "zbirenbaum";
-          repo = "copilot.lua";
-          rev = version;
-          sha256 = "sha256-lD9FdbKKZ6d/BjIfqp0Ust2hqSYNLpCFWxuaKUO9qLs=";
-        };
-      })
-
-      (pkgs.vimUtils.buildVimPlugin rec {
         pname = "CodeGpt";
         version = "96ec57766c6d2133d1b921daffca651c3c7a3541";
         src = pkgs.fetchFromGitHub {
@@ -39,13 +28,13 @@
       })
 
       (pkgs.vimUtils.buildVimPlugin rec {
-        pname = "copilot-cmp";
-        version = "c2cdb3c0f5078b0619055af192295830a7987790";
+        pname = "ChatGPT";
+        version = "467954fbbdb3188e7e1f021a18b746df3fd611bc";
         src = pkgs.fetchFromGitHub {
-          owner = "zbirenbaum";
-          repo = "copilot-cmp";
+          owner = "jackMort";
+          repo = "ChatGPT.nvim";
           rev = version;
-          sha256 = "sha256-+MzEGnhlrYRvAfskOwmw69OC1CsPXt7s3z+xPe9XPqs=";
+          sha256 = "sha256-Vma6BxT++NrrHrr+d+YIJZMhAQk3zoAG8KI8r3UYUcs=";
         };
       })
 
@@ -88,41 +77,7 @@
           change = "cs",
         },
       })
-
-
-      require('copilot').setup({
-        panel = {
-          enabled = true,
-        },
-        suggestion = {
-          enabled = true,
-          auto_trigger = true,
-          debounce = 75,
-          keymap = {
-            accept = "<M-l>",
-            accept_word = false,
-            accept_line = false,
-            next = "<M-]>",
-            prev = "<M-[>",
-            dismiss = "<C-]>",
-          },
-        },
-        filetypes = {
-          yaml = false,
-          markdown = false,
-          help = false,
-          gitcommit = false,
-          gitrebase = false,
-          hgcommit = false,
-          svn = false,
-          cvs = false,
-          ["."] = false,
-        },
-        copilot_node_command = 'node', -- Node.js version must be > 16.x
-        server_opts_overrides = {},
-      })
     '';
-
 
   };
 }

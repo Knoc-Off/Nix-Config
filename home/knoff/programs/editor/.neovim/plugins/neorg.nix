@@ -1,15 +1,13 @@
 {
   programs.nixvim = {
+    # Sets the modes in which text in the cursor line can also be concealed.
+    options.concealcursor = "n";
+
     autoCmd = [
       {
         event = "FileType";
         pattern = "norg";
-        command = "setlocal conceallevel=1";
-      }
-      {
-        event = "BufWritePre";
-        pattern = "*.norg";
-        command = "normal gg=G``zz";
+        command = "set conceallevel=2";
       }
     ];
 
@@ -17,19 +15,11 @@
       enable = true;
 
       modules = {
-        "core.defaults".__empty = null;
+        "core.defaults" = {};
 
         "core.keybinds".config.hook.__raw = ''
           function(keybinds)
             keybinds.unmap('norg', 'n', '<C-s>')
-
-            keybinds.map(
-              'norg',
-              'n',
-              '<leader>c',
-              ':Neorg toggle-concealer<CR>',
-              {silent=true}
-            )
           end
         '';
 
@@ -38,7 +28,7 @@
           nix = "~/perso/nix/notes";
         };
 
-        "core.concealer".__empty = null;
+        "core.concealer" = {};
         "core.completion".config.engine = "nvim-cmp";
       };
     };

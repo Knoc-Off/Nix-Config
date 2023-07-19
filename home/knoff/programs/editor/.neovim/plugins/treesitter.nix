@@ -3,8 +3,6 @@
     treesitter = {
       enable = true;
 
-      nixvimInjections = true;
-
       folding = true;
       indent = true;
 
@@ -19,7 +17,6 @@
         norg
         python
         rust
-        vimdoc
       ];
     };
 
