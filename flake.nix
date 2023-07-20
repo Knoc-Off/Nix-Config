@@ -62,7 +62,7 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./systems/lapix
-          ];
+          ]; # Laptop configuration
         };
         desktop = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };

@@ -25,6 +25,20 @@ nixx () {
     fi
 }
 
+# Open in firefox:
+# open in specific profile
+# open in profile with name minimal
+firefox() {
+    if [[ $1 == "--profile" ]]; then
+        nix-shell -p firefox --run "(firefox --profile $2 $3 &>/dev/null) &"
+    elif [[ $1 == "--private" ]]; then
+        nix-shell -p firefox --run "(firefox --private-window $2 &>/dev/null) &"
+    else
+        nix-shell -p firefox --run "(firefox $1 &>/dev/null) &"
+    fi
+}
+
+
 # Should search for a matching word in apps
 function nx () {
     config_dir="/home/knoff/Nix-Config" #$(realpath "~/nix-config")
