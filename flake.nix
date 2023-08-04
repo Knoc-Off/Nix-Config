@@ -16,24 +16,17 @@
 
     # Nixpkgs
     #stable-pkgs.url = "github:nixos/nixpkgs/nixos-23.05";
-    bl-pkgs.url = "github:nixos/nixpkgs/nixos-unstable"; # can be updated more often
+    unstable-packages.url = "github:nixos/nixpkgs/nixos-unstable"; # can be updated more often
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
 
     # Neovim nix module
-    nixvim =
-      {
-        url = "github:pta2002/nixvim";
-        #inputs.pkgs.follows = "nixpkgs";
-      };
+    nixvim.url = "github:pta2002/nixvim";
 
     # Firefox add-ons packaged for Nix
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Prism Launcher
-    prismlauncher.url = "github:PrismLauncher/PrismLauncher";
 
     # Hyprland
     hyprland = {
@@ -51,21 +44,26 @@
 
   # Define the outputs of the flake
   outputs =
-    inputs@{ self, nix-colors, nixpkgs, bl-pkgs, home-manager, ... }: {
+    inputs@{ self, nix-colors, nixpkgs, unstable-packages, home-manager, ... }:
 
-      # Add an overlay to nixpkgs with your custom package
-      overlay = final: prev: { };
+    let
+      inherit (self) outputs;
+    in
+    {
+
+      # Your custom packages and modifications, exported as overlays
+      overlays = import ./overlays { inherit inputs; };
 
       # Define NixOS system configurations (laptop and desktop)
       nixosConfigurations = {
         lapix = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs outputs; };
           modules = [
             ./systems/lapix
           ]; # Laptop configuration
         };
         desktop = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs outputs; };
           modules = [
             ./systems/desktop
           ];
@@ -74,36 +72,31 @@
 
       # Define Home Manager configurations for the user "knoff" on two systems (lapix and desktop)
       homeConfigurations =
-        let
-          system = "x86_64-linux";
-          overlay = self.overlay;
-          pkgs = import nixpkgs {
-            inherit system;
-            config = { allowUnfree = true; };
-            overlays = [ overlay ];
-          };
-          bled = import bl-pkgs {
-            inherit system;
-            config = { allowUnfree = true; };
-            overlays = [ overlay ];
-          };
-        in
+        #        let
+        #          system = "x86_64-linux";
+        #          #overlay = self.overlay;
+        #          pkgs = import nixpkgs {
+        #            inherit system;
+        #            config = { allowUnfree = true; };
+        #            #overlays = [ overlay ];
+        #          };
+        #        in
         {
           "knoff@lapix" = home-manager.lib.homeManagerConfiguration {
-            inherit pkgs;
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
             modules = [ ./home/knoff/lapix.nix ];
             extraSpecialArgs = {
               inherit inputs;
-              inherit bled;
+              inherit outputs;
               inherit nix-colors;
             };
           };
           "knoff@desktop" = home-manager.lib.homeManagerConfiguration {
-            inherit pkgs;
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
             modules = [ ./home/knoff/desktop.nix ];
             extraSpecialArgs = {
               inherit inputs;
-              inherit bled;
+              inherit outputs;
               inherit nix-colors;
             };
           };

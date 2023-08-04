@@ -4,6 +4,22 @@
     inputs.hardware.nixosModules.lenovo-thinkpad-x1-6th-gen
   ];
 
+
+
+  hardware.opengl.driSupport = true;
+  hardware.opengl.driSupport32Bit = true;
+  hardware.opengl.enable = true;
+  hardware.pulseaudio.support32Bit = true;
+
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    # gtk portal needed to make gtk apps happy
+    #extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
+
+
+
   services.flatpak.enable = true;
 
   services.qemuGuest.enable = true;
@@ -42,8 +58,8 @@
     trashy
 
     dracula-theme # gtk theme
-    gnome3.adwaita-icon-theme  # default gnome cursors
-    xdg-desktop-portal-wlr # Screen Rec.
+    gnome3.adwaita-icon-theme # default gnome cursors
+    #xdg-desktop-portal-wlr # Screen Rec.
 
     swaylock # Screen-locking?
     swayidle
@@ -58,20 +74,20 @@
   programs.light.enable = true; # brightness?
 
   services.dbus.enable = true;
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    # gtk portal needed to make gtk apps happy
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  };
 
   users.users = {
     knoff = {
       shell = pkgs.zsh;
       isNormalUser = true;
+      initialPassword = "knoff";
       openssh.authorizedKeys.keys = [
       ];
       extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
+      packages = with pkgs;
+        [
+          vulkan-tools
+        ];
+
     };
   };
 

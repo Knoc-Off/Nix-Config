@@ -8,6 +8,7 @@
   services.xserver.videoDrivers = [ "amdgpu" ];
 
 
+  # Why is this added?
   hardware = {
     opengl =
       let

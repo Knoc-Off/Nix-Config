@@ -1,7 +1,7 @@
-{ inputs, bled, pkgs, libs, ... }:
+{ inputs, pkgs, libs, ... }:
 {
   home.packages = with pkgs; [
-    bled.lutris
+    lutris
   ];
 
   #home.sessionVariables = {

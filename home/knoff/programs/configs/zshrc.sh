@@ -39,6 +39,20 @@ firefox() {
 }
 
 
+# function to start a wireguard connection with a given config
+# uses nix-shell -p wireguard-tools --run (wg-quick up $1 &>/dev/null) &
+# check if the first argument is up/down
+wg() {
+    if [[ $1 == "up" ]]; then
+        nix-shell -p wireguard-tools --run "sudo wg-quick up $2"
+    elif [[ $1 == "down" ]]; then
+        nix-shell -p wireguard-tools --run "sudo wg-quick down $2"
+    else
+        echo "Usage: wg up/down <config>"
+    fi
+}
+
+
 # Should search for a matching word in apps
 function nx () {
     config_dir="/home/knoff/Nix-Config" #$(realpath "~/nix-config")
@@ -50,7 +64,14 @@ function nx () {
         home-manager switch --flake $config_dir/#knoff@lapix
         ;;
       rt)
-        sudo nixos-rebuild test --flake $config_dir/#knoff
+        sudo nixos-rebuild test --flake $config_dir/#lapix
+        ;;
+      vm)
+          # get output of command, find line with the directory,
+          # starts with: /nix/store/ ... -vm
+          #  then run that file
+
+          sudo nixos-rebuild build-vm --flake $config_dir/#lapix
         ;;
       cd)
         file=$(fd . $config_dir/ --type=d -E .git -H | fzf --query "$@")

@@ -85,6 +85,12 @@
       ''
         ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#${config.colorScheme.colors.base05}"
 
+        # if file exists, export the variable export OPENAI_API_KEY=
+        if [ -f /etc/secrets/gpt/secret ]; then
+          export OPENAI_API_KEY=$(cat /etc/secrets/gpt/secret)
+
+        fi
+
 
       '';
 

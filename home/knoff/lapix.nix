@@ -1,16 +1,32 @@
 #NixOS, home-manager, system configuration, package installation, program enablement, system options.
-{ inputs, lib, config, pkgs, ... }: {
+{ inputs, outputs, lib, config, pkgs, ... }: {
   imports = [
     ./programs
     ./services
     ./desktop
     ./desktop/hyprland
     ./enviroment.nix
+
+    # !!
+    ./desktop/sway.nix
   ];
 
   nixpkgs = {
     overlays = [
-      #inputs.nixneovimplugins.overlays.default
+      # Add overlays your own flake exports (from overlays and pkgs dir):
+      #outputs.overlays.additions
+      outputs.overlays.modifications
+      outputs.overlays.unstable-packages
+
+      # You can also add overlays exported from other flakes:
+      # neovim-nightly-overlay.overlays.default
+
+      # Or define it inline, for example:
+      # (final: prev: {
+      #   hi = final.hello.overrideAttrs (oldAttrs: {
+      #     patches = [ ./change-hello-to-hi.patch ];
+      #   });
+      # })
     ];
     config = {
       allowUnfree = true;
@@ -21,10 +37,10 @@
   home = {
     username = "knoff";
     homeDirectory = "/home/knoff";
-    sessionVariables = {
-      # !! Should remove/reposition
-      NIXPKGS_ALLOW_UNFREE = "1";
-    };
+#    sessionVariables = {
+#      # !! Should remove/reposition
+#      NIXPKGS_ALLOW_UNFREE = "1";
+#    };
   };
 
   qt = {

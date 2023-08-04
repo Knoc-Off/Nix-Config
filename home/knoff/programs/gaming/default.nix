@@ -5,10 +5,9 @@
     ./lutris.nix
 
   ];
-  home.packages =  [
+  home.packages = with pkgs; [
     # Minecraft Launcher
-    inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
-
+    prismlauncher
   ];
 
 }
