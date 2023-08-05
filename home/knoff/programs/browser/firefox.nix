@@ -3,7 +3,7 @@
 {
   imports = [
     ./profiles/main
-    ./profiles/second
+    ./profiles/minimal
   ];
 
   programs.firefox = {
