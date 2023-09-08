@@ -1,6 +1,6 @@
 {
   # A brief description of the flake configuration
-  description = "lowfat config";
+  description = "My personal NixOS configuration";
 
   # Configure additional binary cache substituters and trusted public keys
   nixConfig = {
@@ -17,6 +17,8 @@
     # Nixpkgs
     #stable-pkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     unstable-packages.url = "github:nixos/nixpkgs/nixos-unstable"; # can be updated more often
+    # I want to make the unstable packages the default for home manager,
+    # while keeping the stable packages for the system
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
 
     # Neovim nix module

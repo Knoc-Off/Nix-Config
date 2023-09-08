@@ -32,15 +32,17 @@
       allowUnfree = true;
       allowUnfreePredicate = (pkg: true);
     };
+
   };
+
 
   home = {
     username = "knoff";
     homeDirectory = "/home/knoff";
-#    sessionVariables = {
-#      # !! Should remove/reposition
-#      NIXPKGS_ALLOW_UNFREE = "1";
-#    };
+    #    sessionVariables = {
+    #      # !! Should remove/reposition
+    #      NIXPKGS_ALLOW_UNFREE = "1";
+    #    };
   };
 
   qt = {

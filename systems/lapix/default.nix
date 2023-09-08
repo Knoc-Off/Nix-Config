@@ -6,7 +6,7 @@
 
     #../shared/optional/windowmanager/hyprland
     ../shared/optional/windowmanager/gnome.nix
-    ../shared/optional/greetd.nix
+    #../shared/optional/greetd.nix
     #./vm.nix
 
 

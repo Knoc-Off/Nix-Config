@@ -3,6 +3,6 @@
   imports = [
     ./hyprland.nix
     #./ironbar.nix
-    ./waybar2.nix
+    #./waybar2.nix
   ];
 }

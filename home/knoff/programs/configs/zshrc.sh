@@ -57,15 +57,15 @@ wg() {
 function nx () {
     config_dir="/home/knoff/Nix-Config" #$(realpath "~/nix-config")
     case $1 in
-      rb)
-        sudo nixos-rebuild switch --flake $config_dir/#lapix
-        ;;
-      rh)
-        home-manager switch --flake $config_dir/#knoff@lapix
-        ;;
-      rt)
-        sudo nixos-rebuild test --flake $config_dir/#lapix
-        ;;
+        rb)
+            sudo nixos-rebuild switch --flake $config_dir/#lapix "$@"
+            ;;
+        rh)
+            home-manager switch --flake $config_dir/#knoff@lapix "$@"
+            ;;
+        rt)
+            sudo nixos-rebuild test --flake $config_dir/#lapix "$@"
+            ;;
       vm)
           # get output of command, find line with the directory,
           # starts with: /nix/store/ ... -vm
@@ -79,7 +79,7 @@ function nx () {
         cd "$file"
         ;;
       cf)
-        file=$(fd . $config_dir/*/configs/ -E .git -E .nix -H | fzf --query "$@")
+        file=$(fd . $config_dir/home/knoff/*/configs/ -E .git -E .nix -H | fzf --query "$@")
         if [[ $file == "" ]]; then return; fi
         nvim "$file"
         ;;
