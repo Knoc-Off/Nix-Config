@@ -13,7 +13,7 @@
 
   # Define inputs (repositories or packages) used in this flake
   inputs = {
-    nixvim-flake.url = "github:Knoc-Off/neovim-config";
+    nixvim-flake.url = "github:knoc-off/neovim-config";
     # Nixpkgs
     #stable-pkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     unstable-packages.url = "github:nixos/nixpkgs/nixos-unstable"; # can be updated more often
