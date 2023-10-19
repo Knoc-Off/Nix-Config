@@ -22,6 +22,9 @@
 
     # Manually set some dots
     ./configs
+
+    # Filemanager-related packages
+    ./filemanager
   ];
 
   home.packages = with pkgs; [
@@ -42,10 +45,12 @@
     fuzzel
 
     # File-Managers
-    xfce.thunar
-    pcmanfm
+    #xfce.thunar
+    #pcmanfm
 
   ];
+
+  programs.nix-index.enable = true;
 
 
   services.easyeffects = {
@@ -54,7 +59,7 @@
 
   programs.exa = {
     enable = true;
-    enableAliases = true;
+  #  enableAliases = true;
   };
 
   programs = {

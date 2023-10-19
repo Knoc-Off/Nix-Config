@@ -175,6 +175,12 @@ in
           bind=SUPER,apostrophe,changegroupactive,f
           bind=SUPERSHIFT,apostrophe,changegroupactive,b
 
+          # change layout
+          bind = $mainMod, J, layoutmsg, cyclenext
+          # behaves like xmonads promote feature (https://hackage.haskell.org/package/xmonad-contrib-0.17.1/docs/XMonad-Actions-Promote.html)
+          bind = $mainMod, K, layoutmsg, swapwithmaster master
+          bind = $mainMod, H, layoutmsg, addmaster
+
           bind=SUPER,minus,splitratio,-0.25
           bind=SUPERSHIFT,minus,splitratio,-0.3333333
 
@@ -257,11 +263,9 @@ in
           bind = $mainMod ALT, up, movewindow, u
           bind = $mainMod ALT, down, movewindow, d
 
-          # Move focus with mainMod + arrow keys
-          bind = $mainMod, h, movefocus, l
-          bind = $mainMod, l, movefocus, r
-          bind = $mainMod, k, movefocus, u
-          bind = $mainMod, j, movefocus, d
+          #bind = $mainMod, l, movefocus, r
+          #bind = $mainMod, k, movefocus, u
+          #bind = $mainMod, j, movefocus, d
 
           # Move focus with mainMod + arrow keys
           bind = $mainMod, left, movefocus, l

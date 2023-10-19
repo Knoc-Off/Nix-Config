@@ -55,16 +55,19 @@ wg() {
 
 # Should search for a matching word in apps
 function nx () {
+    # create a variable that contians all arguments except the first one
+    vars=""#"${@:2}"
+
     config_dir="/home/knoff/Nix-Config" #$(realpath "~/nix-config")
     case $1 in
         rb)
-            sudo nixos-rebuild switch --flake $config_dir/#lapix "$@"
+            sudo nixos-rebuild switch --flake $config_dir/#lapix
             ;;
         rh)
-            home-manager switch --flake $config_dir/#knoff@lapix "$@"
+            home-manager switch --flake $config_dir/#knoff@lapix
             ;;
         rt)
-            sudo nixos-rebuild test --flake $config_dir/#lapix "$@"
+            sudo nixos-rebuild test --flake $config_dir/#lapix
             ;;
       vm)
           # get output of command, find line with the directory,
@@ -104,7 +107,11 @@ qr () {
     set -- "$S"
   fi
 
-sanitized_input="$*"
+  sanitized_input="$*"
 
   echo "${sanitized_input}" | qrencode -t UTF8
 }
+
+
+# If ssh is executed from kitty it will auto copy the term info.
+[ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"

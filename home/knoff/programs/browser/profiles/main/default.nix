@@ -14,7 +14,8 @@ let
 
   # Firefox Addons, may want to change this at some point
   addons = inputs.firefox-addons.packages.${pkgs.system};
-in {
+in
+{
   home.file."${profilePath}/chrome/sidebar-mods.css".text = builtins.readFile
     (builtins.fetchurl {
       url =
@@ -37,14 +38,14 @@ in {
       extensions = with addons; [
         # Privacy and Security
         ublock-origin
-        anonaddy
+        addy_io
         clearurls
-        privacy-possum
-        decentraleyes
+        #privacy-possum
+        #decentraleyes
         darkreader
-        sponsorblock
-        i-dont-care-about-cookies
-        consent-o-matic
+        #sponsorblock
+        #i-dont-care-about-cookies
+        #consent-o-matic
 
         bitwarden
         canvasblocker
@@ -54,10 +55,9 @@ in {
         violentmonkey
         tree-style-tab
         smart-referer
-        user-agent-string-switcher
-        single-file
+        #user-agent-string-switcher
+        #single-file
         nighttab
-        rust-search-extension
         translate-web-pages
 
         # Steam-related packages
@@ -66,8 +66,8 @@ in {
         # steam-database
 
         # Github-related packages
-        enhanced-github
-        lovely-forks
+        #enhanced-github
+        #lovely-forks
       ];
 
       userChrome = ''

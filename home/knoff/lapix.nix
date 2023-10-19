@@ -4,7 +4,7 @@
     ./programs
     ./services
     ./desktop
-    #./desktop/hyprland
+    ./desktop/hyprland
     ./enviroment.nix
 
     # !!

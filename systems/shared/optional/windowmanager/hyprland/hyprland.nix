@@ -11,9 +11,6 @@
     {
       programs.hyprland = {
         enable = true;
-        xwayland = {
-          hidpi = true;
-        };
 
       };
     }

@@ -13,7 +13,7 @@
 
   # Define inputs (repositories or packages) used in this flake
   inputs = {
-
+    nixvim-flake.url = "github:Knoc-Off/neovim-config";
     # Nixpkgs
     #stable-pkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     unstable-packages.url = "github:nixos/nixpkgs/nixos-unstable"; # can be updated more often
@@ -21,8 +21,6 @@
     # while keeping the stable packages for the system
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
 
-    # Neovim nix module
-    nixvim.url = "github:pta2002/nixvim";
 
     # Firefox add-ons packaged for Nix
     firefox-addons = {
@@ -36,7 +34,7 @@
     };
 
     # Home Manager (for managing user environments using Nix)
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:nix-community/home-manager/release-23.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # NixOS hardware-specific configurations
@@ -74,15 +72,15 @@
 
       # Define Home Manager configurations for the user "knoff" on two systems (lapix and desktop)
       homeConfigurations =
-        #        let
-        #          system = "x86_64-linux";
+                let
+                  system = "x86_64-linux";
         #          #overlay = self.overlay;
         #          pkgs = import nixpkgs {
         #            inherit system;
         #            config = { allowUnfree = true; };
         #            #overlays = [ overlay ];
         #          };
-        #        in
+                in
         {
           "knoff@lapix" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
@@ -91,6 +89,7 @@
               inherit inputs;
               inherit outputs;
               inherit nix-colors;
+              inherit system;
             };
           };
           "knoff@desktop" = home-manager.lib.homeManagerConfiguration {

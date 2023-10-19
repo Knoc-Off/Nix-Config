@@ -12,7 +12,7 @@ in
       size = 15;
     };
     keybindings = {
-      "super+q" = "launch --cwd=current --type os-window";
+      "ctrl+t" = "launch --cwd=current --type os-window";
       "ctrl+l" =  "clear_terminal to_cursor active";
       #"ctrl+c" =  "copy_or_interrupt";
     };
