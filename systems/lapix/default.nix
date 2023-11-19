@@ -3,6 +3,7 @@
     ../shared/systems-common
     ../shared/optional/audio
     ../shared/optional/filemanager.nix
+    ../shared/optional/networking.nix
 
     ../shared/optional/windowmanager/hyprland
     #../shared/optional/windowmanager/gnome.nix

@@ -61,6 +61,6 @@
     #  "fancy-ctrl-z"
     #  "fd"
     #  "mosh"
-    #];
+    #];the raticalization pipeline right
   };
 }
