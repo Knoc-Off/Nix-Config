@@ -376,11 +376,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1697534983,
-        "narHash": "sha256-BRFBhLehpdoxtaRpPUzwSpZuVMjcmbhozhMNbeoDslk=",
+        "lastModified": 1697791149,
+        "narHash": "sha256-TIaeuL66wrzgADq6m3crtT87Z8KT4ZzhZ6eYkckQHio=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "465d09849a600f90e55f8a0f898fd11c2e292207",
+        "rev": "9832bc3f545fc1364a8bcb630cef808dc8a85797",
         "type": "github"
       },
       "original": {
@@ -396,15 +396,15 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1697713321,
-        "narHash": "sha256-eBJuB74lDIFhPkHNspNvOmGoL94zicSByxHG1BCGZtM=",
-        "owner": "Knoc-Off",
+        "lastModified": 1700393670,
+        "narHash": "sha256-BD3bZ3zvojxOhq3GERtRmNil+S5qB+7RcbqXn0GHH6g=",
+        "owner": "knoc-off",
         "repo": "neovim-config",
-        "rev": "72c7d42f0a343be7e90f599aff866c0ae52ad004",
+        "rev": "15cd9583095e712a1e8d69972ff6d0df2af53ee7",
         "type": "github"
       },
       "original": {
-        "owner": "Knoc-Off",
+        "owner": "knoc-off",
         "repo": "neovim-config",
         "type": "github"
       }

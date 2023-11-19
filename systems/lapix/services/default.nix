@@ -8,6 +8,7 @@
   services.fwupd.enable = true;
   #services.timesyncd.enable = true;
 
+  services.ivpn.enable = true;
 
   # Create custom systemd timer that runs every day, and clears the journal logs of the past 2 weeks
   systemd.services.clear-journal = {

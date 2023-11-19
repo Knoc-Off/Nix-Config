@@ -12,7 +12,7 @@
   hardware.pulseaudio.support32Bit = true;
 
 
-
+  programs.fuse.userAllowOther = true;
 
   services.flatpak.enable = true;
 

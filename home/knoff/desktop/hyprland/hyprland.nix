@@ -3,6 +3,8 @@ let
   inherit (config.colorscheme) colors;
   #jq = "${pkgs.jq}/bin/jq";
   fuzzel = "${pkgs.fuzzel}/bin/fuzzel";
+  #grimblast = "${pkgs.}/bin/fuzzel";
+  # mainmod = xyz TODO
 in
 {
   programs = {
@@ -23,27 +25,20 @@ in
       wayland.windowManager.hyprland = {
         enable = true;
         systemdIntegration = true;
-        #nvidiaPatches = false;
+        # TODO move into a custom config file? or use writeto, and pass paths
         extraConfig = ''
-
-          # See https://wiki.hyprland.org/Configuring/Monitors/
-          #monitor=,preferred,auto,auto
-
-
-          # See https://wiki.hyprland.org/Configuring/Keywords/ for more
-
-          # Execute your favorite apps at launch
-          # exec-once = waybar & hyprpaper & firefox
 
           # Source a file (multi-file configs)
           # source = ~/.config/hypr/myColors.conf
 
-          # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
+          $mainMod = SUPER
+
           input {
+
             kb_layout = us
             kb_variant =
+            kb_options = caps:menu # only applies after reboot?
             kb_model =
-            kb_options =
             kb_rules =
 
             follow_mouse = 1
@@ -52,7 +47,7 @@ in
               natural_scroll = true
             }
 
-            sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
+            sensitivity = 0
           }
 
           general {
@@ -64,64 +59,48 @@ in
             col.active_border =  0xff${colors.base04}
             col.inactive_border = 0xff${colors.base02}
 
-            #cursor_inactive_timeout=4
-            layout = dwindle
+            col.nogroup_border_active = 0xff${colors.base2E}
+            col.nogroup_border = 0x99${colors.base2E}
+
+            layout = master
           }
 
           decoration {
-            # See https://wiki.hyprland.org/Configuring/Variables/ for more
 
-            rounding = 5
-            blur=true
-            blur_size=5
-            blur_passes=3
-            blur_ignore_opacity=true
-            blur_new_optimizations = true
+            rounding = 10
 
-            inactive_opacity=0.9
+            inactive_opacity=0.95
 
-            drop_shadow = true
+            drop_shadow = false
             shadow_range = 2
             shadow_render_power = 3
             col.shadow = 0xff${colors.base01}
+            blur {
+              enabled = true;
+              passes = 1;
+              size = 8;
+              noise = 0.1
             }
+          }
 
-
-
-#          animations {
-#            enabled=true
-#
-#            bezier=easein,0.11, 0, 0.5, 0
-#            bezier=easeout,0.5, 1, 0.89, 1
-#            bezier=easeinout,0.45, 0, 0.55, 1
-#
-#            animation=windowsIn,1,3,easeout,slide
-#            animation=windowsOut,1,3,easein,slide
-#            animation=windowsMove,1,3,easeout
-#
-#            animation=fadeIn,1,3,easeout
-#            animation=fadeOut,1,3,easein
-#            animation=fadeSwitch,1,3,easeout
-#            animation=fadeShadow,1,3,easeout
-#            animation=fadeDim,1,3,easeout
-#            animation=border,1,3,easeout
-#
-#            animation=workspaces,1,2,easeout,slide
-#          }
 
           animations {
             enabled = true
 
             # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
 
-            bezier = myBezier, 0.05, 0.9, 0.1, 1.05
+            bezier = myBezier, 0.00, 1, 0, 9
+            bezier = instant, 0, 9, 0, 9
+            bezier = popBezier, 0.34, 1.16, 0.64, 1
+            bezier = slowStart, 0.32, 0, 0.67, 0
 
-            animation = windows, 1, 7, myBezier
-            animation = windowsOut, 1, 7, default, popin 80%
+            animation = windows, 1, 3, default
+            animation = windowsIn, 1, 2, default
+            animation = windowsOut, 1, 1, instant # default, popin 80%
             animation = border, 1, 10, default
             #animation = borderangle, 1, 8, default
-            animation = fade, 1, 7, default
-            animation = workspaces, 1, 6, default
+            animation = fade, 1, 10, default
+            animation = workspaces, 1, 3, default
           }
 
           dwindle {
@@ -132,20 +111,49 @@ in
 
           master {
             # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-            new_is_master = true
+            new_is_master = false
+            new_on_top = true
+            no_gaps_when_only = true
           }
+
+          ## Master-Layout binds
+          bind =, print, layoutmsg, swapwithmaster master
+          bind =, XF86Fn, layoutmsg, addmaster
 
           gestures {
             # See https://wiki.hyprland.org/Configuring/Variables/ for more
             workspace_swipe = true
           }
 
-          # Example per-device config
-          # See https://wiki.hyprland.org/Configuring/Keywords/#executing for more
-          device:epic mouse V1 {
-            sensitivity = -0.5
+          group {
+            insert_after_current = true;
+            focus_removed_window = true;
+            col.border_active = 0xff${colors.base0E}; # ff base0E
+            col.border_inactive = 0x99${colors.base0E}; # 99 base0E
+            col.border_locked_active =   0xff${colors.base20}; # red?
+            col.border_locked_inactive = 0x99${colors.base20};
+
+            groupbar {
+              font_size = 10;
+              gradients = false;
+              render_titles = true;
+              scrolling = false;
+              text_color = 0xff${colors.base06};
+              col.active = 0xff${colors.base0D}; # ff base0D
+              col.inactive = 0x99${colors.base0D}; # 99 base0D
+              col.locked_active = 0xff${colors.base20};
+              col.locked_inactive = 0x99${colors.base20};
+            }
           }
 
+          misc {
+              disable_hyprland_logo = true;
+              disable_splash_rendering = true;
+              force_default_wallpaper = 0;
+              enable_swallow = true; # TODO Config the regex
+          }
+
+          # Is this necessary?
           windowrule=float,^mako$
           windowrule=pin,^mako$
 
@@ -156,8 +164,6 @@ in
           # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
 
 
-          # See https://wiki.hyprland.org/Configuring/Keywords/ for more
-          $mainMod = SUPER
 
           # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
           bind = $mainMod, SPACE, exec, ${fuzzel} -b ${colors.base02}DD -t ${colors.base06}DD -m ${colors.base04}DD -C ${colors.base05}DD -s ${colors.base03}DD -S ${colors.base07}DD -M ${colors.base07}DD
@@ -165,49 +171,45 @@ in
           bind = $mainMod, E, exit,
           bind = $mainMod, V, togglefloating,
           #bind = $mainMod, R, exec, wofi --show drun
-          bind = $mainMod, P, pseudo, # dwindle
+          #bind = $mainMod, P, pseudo, # dwindle
           bind = $mainMod, S, togglesplit, # dwindle
           bind = $mainMod, F, fullscreen, 0
           #bind = $mainMod, T, tile,
 
-          # What does this do
-          bind=SUPER,g,togglegroup
-          bind=SUPER,apostrophe,changegroupactive,f
-          bind=SUPERSHIFT,apostrophe,changegroupactive,b
+          # Groups
+          bind=$mainMod,g,togglegroup
+          # bind=$mainMod,tab,changegroupactive, f
+          bind=,page_down,changegroupactive,f
+          bind=,page_up,changegroupactive, b
 
-          # change layout
-          bind = $mainMod, J, layoutmsg, cyclenext
-          # behaves like xmonads promote feature (https://hackage.haskell.org/package/xmonad-contrib-0.17.1/docs/XMonad-Actions-Promote.html)
-          bind = $mainMod, K, layoutmsg, swapwithmaster master
-          bind = $mainMod, H, layoutmsg, addmaster
+          bind=$mainMod, menu, submap, groups
 
-          bind=SUPER,minus,splitratio,-0.25
-          bind=SUPERSHIFT,minus,splitratio,-0.3333333
-
-          bind=SUPER,equal,splitratio,0.25
-          bind=SUPERSHIFT,equal,splitratio,0.3333333
+          # caps_lock, gets bound to groups
+          bind=ALT,menu,denywindowfromgroup, toggle
+          bind=ALT,menu,lockactivegroup, toggle
+          bind=,menu,focuscurrentorlast
+          bind=$mainMod,tab,focuscurrentorlast
 
 
-          binde=$mainMod SHIFT,right,resizeactive,25 0
-          binde=$mainMod SHIFT,right,resizeactive,25 0
-          binde=$mainMod SHIFT,left,resizeactive,-25 0
-          binde=$mainMod SHIFT,up,resizeactive,0 -25
-          binde=$mainMod SHIFT,down,resizeactive,0 25
+          # Resize windows splitratio, is far smoother.
+          binde=$mainMod SHIFT,right, resizeactive,   4% 0
+          binde=$mainMod SHIFT,left,  resizeactive,   -4% 0
+          binde=$mainMod SHIFT,up,    resizeactive,   0 -4%
+          binde=$mainMod SHIFT,down,  resizeactive,   0 4%
 
-          # sudo light -A 10 # ADD
-          # sudo light -O 10 # SUB
+          # Monitor brightness
+          binde=,XF86MonBrightnessUp,     exec,light -A 10
+          binde=,XF86MonBrightnessDown,   exec,light -U 10
 
-          binde=, XF86MonBrightnessDown, exec, sudo light -A 10
-          bindl=, XF86MonBrightnessDown, exec, sudo light -O 10
-
-          # Example volume button that allows press and hold
+          # Volume
           binde=, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+          binde=, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+          binde=, XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 
-          # Example volume button that will activate even while an input inhibitor is active
-          bindl=, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+          # ~~~~~~~~~~~ SUBMAPS ~~~~~~~~~~~
 
 
-          # ~~~~~~~~~~~
+          # ~~~~~~ resize
 
 
           # will switch to a submap called resize
@@ -228,14 +230,44 @@ in
           # will reset the submap, meaning end the current one and return to the global one
           submap=reset
 
-          # ~~~~ Window Specific Rules ~~~~~
+
+          # ~~~~~~ Groups
+
+
+          # will start a submap called "groups"
+          submap=groups
+
+          # disable current no group state?
+          # sets repeatable binds for resizing the active window
+          binde=,right, movewindoworgroup, r
+          binde=,left, movewindoworgroup, l
+          binde=,up, movewindoworgroup, u
+          binde=,down, movewindoworgroup, d
+
+          # Change this to be every key spelled out. like above
+
+          binde=,right, submap, reset
+          binde=,left, submap, reset
+          binde=,up, submap, reset
+          binde=,down, submap, reset
+
+          # use reset to go back to the global submap
+          bind=,escape,submap,reset # make this pass the esc. mod to the lower windows.
+
+          # will reset the submap, meaning end the current one and return to the global one
+          submap=reset
+
+
+          # ~~~~~~~ Submap end ~~~~~~~~
 
 
 
 
-          # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
           # ~~~~ Enviroment Variables ~~~~~
+          # TODO! look at supplanting the env. with the nix config variables
+
           env = GDK_BACKEND,wayland,x11
           env = QT_QPA_PLATFORM,wayland;xcb
           env = SDL_VIDEODRIVER,wayland
@@ -257,21 +289,27 @@ in
           # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-          # Move focus with mainMod + arrow keys
+          # Move Window with mainMod + ALT + arrow keys
           bind = $mainMod ALT, left, movewindow, l
           bind = $mainMod ALT, right, movewindow, r
           bind = $mainMod ALT, up, movewindow, u
           bind = $mainMod ALT, down, movewindow, d
 
-          #bind = $mainMod, l, movefocus, r
-          #bind = $mainMod, k, movefocus, u
-          #bind = $mainMod, j, movefocus, d
+          # TODO vim binds for movewindow
 
           # Move focus with mainMod + arrow keys
           bind = $mainMod, left, movefocus, l
           bind = $mainMod, right, movefocus, r
           bind = $mainMod, up, movefocus, u
           bind = $mainMod, down, movefocus, d
+
+          bind = $mainMod, A, movetoworkspace, special
+
+          # Vim binds focus
+          bind = $mainMod, h, movefocus, l
+          bind = $mainMod, l, movefocus, r
+          bind = $mainMod, k, movefocus, u
+          bind = $mainMod, j, movefocus, d
 
           # Switch workspaces with mainMod + [0-9]
           bind = $mainMod, 1, workspace, 1
@@ -286,11 +324,6 @@ in
           bind = $mainMod, 0, workspace, 10
 
 
-          # Volume
-          binde=, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
-          binde=, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-          binde=, XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-
           # Move active window to a workspace with mainMod + SHIFT + [0-9]
           bind = $mainMod SHIFT, 1, movetoworkspace, 1
           bind = $mainMod SHIFT, 2, movetoworkspace, 2
@@ -303,30 +336,14 @@ in
           bind = $mainMod SHIFT, 9, movetoworkspace, 9
           bind = $mainMod SHIFT, 0, movetoworkspace, 10
 
-          # Scroll through existing workspaces with mainMod + scroll
-          bind = $mainMod, mouse_down, workspace, e+1
-          bind = $mainMod, mouse_up, workspace, e-1
-
           # Move/resize windows with mainMod + LMB/RMB and dragging
-          bindm = $mainMod, mouse:272, movewindow
-          bindm = $mainMod, mouse:273, resizewindow
+          #bindm = $mainMod, mouse:272, movewindow
+          #bindm = $mainMod, mouse:273, resizewindow
 
           # Startup
           exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
           exec-once=hyprpaper
           #exec-once=swayidle -w
-
-          # Keyboard controls (brightness, media, sound, etc)
-          bind=,XF86MonBrightnessUp,exec,light -A 10
-          bind=,XF86MonBrightnessDown,exec,light -U 10
-
-          # Screenshots
-          bind=,Print,exec,grimblast --notify copy output
-          bind=SHIFT,Print,exec,grimblast --notify copy active
-          bind=CONTROL,Print,exec,grimblast --notify copy screen
-          bind=SUPER,Print,exec,grimblast --notify copy window
-          bind=ALT,Print,exec,grimblast --notify copy area
-
 
         '';
 

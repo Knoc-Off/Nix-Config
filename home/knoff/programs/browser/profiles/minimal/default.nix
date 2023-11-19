@@ -51,6 +51,12 @@ in
         # Appearance/functionality
         new-tab-override
         adsum-notabs
+
+        smart-referer
+        darkreader
+
+        nighttab
+        translate-web-pages
       ];
 
 

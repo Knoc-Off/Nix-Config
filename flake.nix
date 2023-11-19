@@ -21,7 +21,6 @@
     # while keeping the stable packages for the system
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
 
-
     # Firefox add-ons packaged for Nix
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
@@ -72,15 +71,15 @@
 
       # Define Home Manager configurations for the user "knoff" on two systems (lapix and desktop)
       homeConfigurations =
-                let
-                  system = "x86_64-linux";
-        #          #overlay = self.overlay;
-        #          pkgs = import nixpkgs {
-        #            inherit system;
-        #            config = { allowUnfree = true; };
-        #            #overlays = [ overlay ];
-        #          };
-                in
+        let
+          system = "x86_64-linux";
+          #          #overlay = self.overlay;
+          #          pkgs = import nixpkgs {
+          #            inherit system;
+          #            config = { allowUnfree = true; };
+          #            #overlays = [ overlay ];
+          #          };
+        in
         {
           "knoff@lapix" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
@@ -88,8 +87,8 @@
             extraSpecialArgs = {
               inherit inputs;
               inherit outputs;
-              inherit nix-colors;
               inherit system;
+              inherit nix-colors;
             };
           };
           "knoff@desktop" = home-manager.lib.homeManagerConfiguration {
@@ -98,6 +97,7 @@
             extraSpecialArgs = {
               inherit inputs;
               inherit outputs;
+              inherit system;
               inherit nix-colors;
             };
           };

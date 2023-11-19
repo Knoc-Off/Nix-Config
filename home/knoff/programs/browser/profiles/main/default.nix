@@ -14,21 +14,41 @@ let
 
   # Firefox Addons, may want to change this at some point
   addons = inputs.firefox-addons.packages.${pkgs.system};
+
+  # Edge modifications, drawer, style, etc.
+  Edge-Mimicry = pkgs.fetchFromGitHub {
+    owner = "UnlimitedAvailableUsername";
+    repo = "Edge-Mimicry-Tree-Style-Tab-For-Firefox";
+    rev = "f9c59082c4803aace8c07fe9888b0216e9e680a7";
+    sha256 = "sha256-dEaWqwbui70kCzBeNjJIttKSSgi4rAncc8tGcpGvpl4=";
+  };
+
 in
 {
-  home.file."${profilePath}/chrome/sidebar-mods.css".text = builtins.readFile
-    (builtins.fetchurl {
-      url =
-        "https://raw.githubusercontent.com/UnlimitedAvailableUsername/Edge-Mimicry-Tree-Style-Tab-For-Firefox/main/edge-mimicry/sidebar-mods.css";
-      sha256 = "0r70aygb86gldpzcsv2jqr88hm612m1av7whgxh3qid8jkzwfhxb";
-    });
 
-  home.file."${profilePath}/chrome/treestyletab-edge-mimicry.css".text =
-    builtins.readFile (builtins.fetchurl {
-      url =
-        "https://raw.githubusercontent.com/UnlimitedAvailableUsername/Edge-Mimicry-Tree-Style-Tab-For-Firefox/main/treestyletab-edge-mimicry.css";
-      sha256 = "1pyn99widc3m9xlsklwd403q2srhnafa4a1kyh1b3pgd1w9g0bli";
-    });
+  home.file = {
+    # Could think about putting this back one dir, to be reused
+    "themes" = {
+      source = "${Edge-Mimicry}";
+      target = "${profilePath}/chrome/themes";
+    };
+  };
+
+  #home.file."${profilePath}/chrome/sidebar-mods.css".text ;
+  #home.file."${profilePath}/chrome/treestyletab-edge-mimicry.css".text ;
+  #  home.file."${profilePath}/chrome/sidebar-mods.css".text = builtins.readFile
+  #    (builtins.fetchurl {
+  #      url =
+  #        "https://raw.githubusercontent.com/UnlimitedAvailableUsername/Edge-Mimicry-Tree-Style-Tab-For-Firefox/main/edge-mimicry/sidebar-mods.css";
+  #      sha256 = "100xnrf8hzlhl88i8q2s8bva5amykd0dcbl08x9xigrl1yplcl5y";
+  #    });
+  #
+  #  home.file."${profilePath}/chrome/treestyletab-edge-mimicry.css".text =
+  #    builtins.readFile (builtins.fetchurl {
+  #      url =
+  #        "https://raw.githubusercontent.com/UnlimitedAvailableUsername/Edge-Mimicry-Tree-Style-Tab-For-Firefox/main/treestyletab-edge-mimicry.css";
+  #      sha256 = "17dpnmdkvj1y56w12yb4bc0g0ryyyjbd9jnbsw33bn0030qp4594";
+  #    });
 
   programs.firefox = {
     profiles.${profileName} = {
@@ -70,8 +90,9 @@ in
         #lovely-forks
       ];
 
+      # @import "sidebar-mods.css";
       userChrome = ''
-        @import "sidebar-mods.css";
+        @import "./themes/edge-mimicry/sidebar-mods.css";
 
         #sidebar-header {
           display: none;
