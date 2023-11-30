@@ -52,6 +52,7 @@ in
 
   programs.firefox = {
     profiles.${profileName} = {
+      isDefault = false;
       inherit id;
       name = "${profileName}";
 

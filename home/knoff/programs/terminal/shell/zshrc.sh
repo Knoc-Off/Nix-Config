@@ -66,30 +66,25 @@ function nx () {
         rt)
             sudo nixos-rebuild test --flake $config_dir/#lapix
             ;;
-
         cr)
             nix repl --extra-experimental-features repl-flake ~/Nix-Config#nixosConfigurations.lapix
             ;;
         hr)
             nix repl --extra-experimental-features repl-flake ~/Nix-Config#homeConfigurations."knoff@lapix"
             ;;
-
-      vm)
-          # get output of command, find line with the directory,
-          # starts with: /nix/store/ ... -vm
-          #  then run that file
-
-          sudo nixos-rebuild build-vm --flake $config_dir/#lapix
+        vm)
+            sudo nixos-rebuild build-vm --flake $config_dir/#lapix
         ;;
-      cd)
-        file=$(fd . $config_dir/ --type=d -E .git -H | fzf )
-        if [[ $file == "" ]]; then return; fi
-        cd "$file"
-        ;;
-      *)
-        file=$(fd . $config_dir -e nix -E .git -H | fzf --query "$@")
-        if [[ $file == "" ]]; then return; fi
-          nvim "$file"
+        cd)
+          # find all directories in the config dir.
+            file=$(fd . $config_dir/ --type=d -E .git -H | fzf)
+            if [[ $file == "" ]]; then return; fi
+            cd "$file"
+            ;;
+            *)
+            file=$(fd . $config_dir -e nix -E .git -H | fzf --query "$@")
+            if [[ $file == "" ]]; then return; fi
+              nvim "$file"
         ;;
     esac
 }
@@ -115,4 +110,5 @@ qr () {
 
 
 # If ssh is executed from kitty it will auto copy the term info.
+# should move this to kitty config
 [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"

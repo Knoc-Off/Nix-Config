@@ -7,7 +7,7 @@
 
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true; # i dont like this too much. seems to mess with me more than help
+    #enableAutosuggestions = true; # i dont like this too much. seems to mess with me more than help
 
 
     dirHashes = {
@@ -33,8 +33,8 @@
 
     # append text to end of read file
     initExtra =
-      builtins.readFile # Should move this into the current dir
-        ./zshrc.sh +
+      builtins.readFile ./zshrc.sh +
+
       ''
 
         # Dont judge me too harshly... ai is useful.
@@ -61,6 +61,6 @@
     #  "fancy-ctrl-z"
     #  "fd"
     #  "mosh"
-    #];the raticalization pipeline right
+    #];
   };
 }

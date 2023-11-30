@@ -24,11 +24,23 @@ let
   };
 
 
+  firefox-csshacks = pkgs.fetchFromGitHub {
+    owner = "MrOtherGuy";
+    repo = "firefox-csshacks";
+    rev = "67a9e9f9c96e6d007b4c57f1dd7eaceaee135178";
+    sha256 = "sha256-uz6tqkjjTFMvY6IY70ke8dW5nst0AJoWJHObtzalQAc=";
+  };
+
+
 
 
 in
 {
   home.file = {
+    "firefox-csshacks" = {
+      source = "${firefox-csshacks}";
+      target = "${profilePath}/chrome/firefox-csshacks";
+    };
     "edge-mimicry" = {
       source = "${Edge-Mimicry}";
       target = "${profilePath}/chrome/edge-mimicry";
@@ -40,6 +52,7 @@ in
 
   programs.firefox = {
     profiles.${profileName} = {
+      isDefault = true;
       inherit id;
       name = "${profileName}";
 
@@ -95,6 +108,15 @@ in
 
       # @import "./edge-mimicry/edge-mimicry/sidebar-mods.css";
       userChrome = ''
+        @import "./firefox-csshacks/chrome/autohide_sidebar.css";
+
+        /* override sidebar options */
+        /* https://pastebin.com/KFHjwR4d */
+        #sidebar-box{
+          --uc-autohide-sidebar-delay: 100ms;
+          --uc-autohide-transition-duration: 115ms;
+          --uc-sidebar-width: 40px;
+        }
 
 
         .tabbrowser-tabpanels {
