@@ -16,6 +16,8 @@ let
   addons = inputs.firefox-addons.packages.${pkgs.system};
 
 
+  # can add these to a flake.
+  # shold link these a directory back, so that it can be reused.
   Edge-Mimicry = pkgs.fetchFromGitHub {
     owner = "UnlimitedAvailableUsername";
     repo = "Edge-Mimicry-Tree-Style-Tab-For-Firefox";
